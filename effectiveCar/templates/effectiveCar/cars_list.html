@@ -1,0 +1,9 @@
+<h1>Cars list:</h1>
+<ul>
+	{% for item in object_list %}
+	<li>Car {{ item }} <a href="{% url 'edit_car' pk=item.id %}">edit</a></li>
+	{% endfor %}
+
+	<a href="{% url 'add_car' %}">Add a car</a>
+
+</ul>

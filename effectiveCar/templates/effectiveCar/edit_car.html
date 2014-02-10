@@ -1,0 +1,20 @@
+{% if object.id %}
+<title>Edit a car {{ object.license_id }}</title>
+<h1>Edit a {{ object.license_id }}</h1>
+{% else %}
+<title>Addcar</title>
+<h1>Add a car</h1>
+{% endif %}
+
+
+<form action="{{ target }}" method='POST'>
+
+{% csrf_token %}
+
+<ul>
+	{{ form.as_ul }}
+</ul>
+
+<input type="submit" value="Save" />
+
+</form>
