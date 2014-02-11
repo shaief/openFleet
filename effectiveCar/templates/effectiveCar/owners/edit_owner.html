@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{% if object.id %}
+Edit details for {{ object.name }}
+{% else %}
+Add driver
+{% endif %}
+{% endblock %}
+{% block content %}
+{% if object.id %}
+<h3>Edit details for driver {{ object.name }}</h3>
+{% else %}
+<h3>Add a driver</h3>
+{% endif %}
+
+<form action="{{ target }}" method='POST'>
+
+{% csrf_token %}
+
+<ul>
+	{{ form.as_ul }}
+</ul>
+
+<input type="submit" value="Save" />
+
+</form>
+
+{% endblock %}

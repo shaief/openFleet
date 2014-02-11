@@ -1,0 +1,15 @@
+<title>Add a car</title>
+
+<h1>Add a car:</h1>
+
+<form action="{% url 'add_car' %}" method='POST'>
+
+{% csrf_token %}
+
+<ul>
+	{{ form.as_ul }}
+</ul>
+
+<input type="submit" value="Save" />
+
+</form>

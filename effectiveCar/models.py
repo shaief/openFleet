@@ -1,12 +1,34 @@
 from django.db import models
 
 
-class Car(models.Model):
-    license_id = models.CharField(max_length=9)
-    current_owner = models.CharField(max_length=40, null=True, blank=True)
+class Owner(models.Model):
+    name = models.CharField(max_length=30)
+    email = models.EmailField(null=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.license_id + " " + self.current_owner
+        return self.name + " " + self.email
+
+
+class Classification(models.Model):
+    group = models.CharField(max_length=30)
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.group
+
+
+class Car(models.Model):
+    license_id = models.CharField(max_length=9)
+    classification = models.ForeignKey(Classification)
+    car_model = models.CharField(max_length=20)
+    maker = models.CharField(max_length=20)
+    production_year = models.SmallIntegerField()
+    date_of_purchase = models.DateField()
+    license_renewal_date = models.DateField()
+    insurance_renewal_date = models.DateField()
+    current_owner = models.ForeignKey(Owner)
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.license_id + " " + self.car_model
 
 
 class MonthlyRecord(models.Model):
@@ -19,13 +41,6 @@ class MonthlyRecord(models.Model):
         return self.car + " " + self.year + " " + self.month
 
 
-class Owner(models.Model):
-    name = models.CharField(max_length=30)
-
-    def __unicode__(self):  # Python 3: def __str__(self):
-        return self.name
-
-
 class CarOwnership(models.Model):
     car = models.ForeignKey(Car)
     owner = models.ForeignKey(Owner)
@@ -33,7 +48,8 @@ class CarOwnership(models.Model):
     end_date = models.DateField(null=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.name
+        return self.car + " " + self.owner + " "
+        + self.start_date + " " + self.end_date
 
 
 class TreatmentType(models.Model):
@@ -53,16 +69,16 @@ class Treatment(models.Model):
     remarks = models.TextField()
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.name
+        return self.car + " " + date + " " + cost
 
 
 class KMRead(models.Model):
     car = models.ForeignKey(Car)
+    reported_at = models.DateTimeField()
     report_type = models.CharField(max_length=8)  # precise / estimate
     # precise is a real time, smartphnoe based read, estimate is less accurate.
     timestamp = models.DateTimeField()  # if time is unknown, use 12:00
     value = models.FloatField()
-    reported_at = models.DateTimeField()
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.name
+        return self.car + " " + reported_at + " " + value

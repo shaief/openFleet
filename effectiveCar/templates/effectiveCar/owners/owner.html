@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ owner.name }}
+{% endblock %}
+
+
+{% block content %}
+<h1 align='center'>{{ car.license_id }}</h1>
+<ul>
+	<li>Driver: {{ owner.name }}</li>
+	<li>Email address: {{ owner.email }}</li>
+	<li>Car: {{ owner.car_set.license_id }}</li>
+{% endblock %}

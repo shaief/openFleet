@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ car.license_id }}
+{% endblock %}
+
+
+{% block content %}
+<h1 align='center'>License id: {{ car.license_id }}</h1>
+<ul>
+	<li>Driver: <a href="{% url 'view_owner' pk=car.current_owner.id %}">{{ car.current_owner.name }}</a></li>
+	<li>Group: {{ car.classification }}</li>
+	<li>Model: {{ car.maker }} {{ car.car_model }}</li>
+	<li>Production year: {{ car.production_year }}</li>
+</br>
+<a href="{% url 'add_car' %}"><button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-plus"></span>
+	Add a car
+</button></a>
+
+{% endblock %}

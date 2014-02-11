@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Drivers list
+{% endblock %}
+
+
+{% block content %}
+<h4>Drivers list:</h4>
+<ul>
+	
+	{% for item in object_list %}
+	<li><a href="{% url 'view_owner' pk=item.id %}">{{ item.name }} </a> <a href="{% url 'edit_owner' pk=item.id %}">[edit]</a></li>
+	{% endfor %}
+</ul>
+</br>
+<button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-user"></span>
+<a href="{% url 'add_owner' %}">Add a driver</a>
+</button>
+
+{% endblock %}

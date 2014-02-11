@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ monthlyrecord.car }}
+{% endblock %}
+
+
+{% block content %}
+<h1 align='center'>License id: {{ monthlyrecord.car.license_id }}</h1>
+<ul>
+	<li>Driver: <a href="{% url 'view_owner' pk=monthlyrecord.car.current_owner.id %}">{{ monthlyrecord.car.current_owner.name }}</a></li>
+	<li>Group: {{ monthlyrecord.car.classification }}</li>
+	<li>Model: {{ monthlyrecord.car.maker }} {{ monthlyrecord.car.car_model }}</li>
+	<li>Production year: {{ monthlyrecord.car.production_year }}</li>
+	<li>Record period: {{ monthlyrecord.month }}/{{ monthlyrecord.year }}</li>
+	<li>Total fuel consumed during this month: {{ monthlyrecord.fuel_consumed }} [liters]</li>
+</br>
+
+<a href="{% url 'edit_record' pk=monthlyrecord.id %}"><button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-plus"></span>
+	Edit
+</button></a>
+<a href="{% url 'add_record' %}"><button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-plus"></span>
+	Add a new one
+</button></a>
+
+{% endblock %}
