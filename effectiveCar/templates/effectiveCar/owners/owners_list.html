@@ -15,9 +15,10 @@ Drivers list
 	{% endfor %}
 </ul>
 </br>
+<a href="{% url 'add_owner' %}">
 <button type="button" class="btn btn-default btn-md">
 	<span class="glyphicon glyphicon-user"></span>
-<a href="{% url 'add_owner' %}">Add a driver</a>
-</button>
+Add a driver
+</button></a>
 
 {% endblock %}

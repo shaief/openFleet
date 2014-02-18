@@ -10,11 +10,18 @@ Records list
 <h4>Records list:</h4>
 <ul>
 	{% for record in object_list %}
-	<li><a href="{% url 'view_record' pk=record.id %}">{{ record.month }}/{{ record.year }} {{ record.car.license_id }}</a> [<a href="{% url 'edit_record' pk=record.id %}">edit</a>]</li>
+	<li>
+		<a href="{% url 'view_record' pk=record.id %}">
+			{{ record.month }}/{{ record.year }} {{ record.license_id }}
+		</a>
+		[<a href="{% url 'edit_record' pk=record.id %}">
+		edit
+		</a>]
+	</li>
 	{% endfor %}
 </ul>
 </br>
-<a href="{% url 'add_car' %}">
+<a href="{% url 'add_record' %}">
 <button type="button" class="btn btn-default btn-md">
 	<span class="glyphicon glyphicon-plus"></span>
 	Add a record

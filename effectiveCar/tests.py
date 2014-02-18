@@ -1,5 +1,5 @@
 from django.test import TestCase
-from effectiveCar.models import Car
+from effectiveCar.models import Car, Owner
 # Create your tests here.
 
 
@@ -11,13 +11,13 @@ class SimpleTest(TestCase):
 class CarTests(TestCase):
 
     def test_str(self):
-
         c = Car(license_id='12-345-90', current_owner='Jon Doe')
         self.assertEqual(str(c), '12-345-90 Jon Doe')
 
 
 from django.test.client import RequestFactory
 from effectiveCar.views import CarListView
+
 
 class CarListViewTests(TestCase):
 
@@ -35,11 +35,12 @@ class CarListViewTests(TestCase):
 
         factory = RequestFactory()
         request = factory.get('/')
-
-        c = Car.objects.create(license_id='12-345-67', current_owner='Neil Young')
+        o = Owner.objects.create(name='Neil Young')
+        c = Car.objects.create(
+            license_id='12-345-67',
+            current_owner='Neil Young')
 
         response = CarListView.as_view()(request)
 
         self.assertEquals(
             list(response.context_data['object_list']), [c],)
-

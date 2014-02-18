@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Groups list
+{% endblock %}
+
+{% block content %}
+<h4>Groups list:</h4>
+<ul>
+	{% for group in object_list %}
+	<li>
+		<a href="{% url 'view_group' pk=group.id %}">
+			{{ group.group }} {{ group.id }}
+		</a>
+		[<a href="{% url 'edit_group' pk=group.id %}">
+		edit
+		</a>]
+	</li>
+	{% endfor %}
+</ul>
+</br>
+<a href="{% url 'add_group' %}">
+<button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-plus"></span>
+	Add a group
+</button>
+</a>
+
+{% endblock %}

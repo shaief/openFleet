@@ -17,14 +17,14 @@ class MonthlyListView(ListView):
         self.arg = arg
     """
     model = MonthlyRecord
-    fields = ['car', 'year', 'month', 'fuel_consumed']
+    fields = ['license_id', 'year', 'month', 'fuel_consumed']
     template_name = 'effectiveCar/monthly/records_list.html'
 
 
 class CreateMonthlyView(CreateView):
 
     model = MonthlyRecord
-    fields = ['car', 'year', 'month', 'fuel_consumed']
+    fields = ['license_id', 'year', 'month', 'fuel_consumed']
     template_name = 'effectiveCar/monthly/edit_monthly.html'
 
     def get_success_url(self):
@@ -40,7 +40,7 @@ class CreateMonthlyView(CreateView):
 class UpdateMonthlyView(UpdateView):
 
     mmodel = MonthlyRecord
-    fields = ['car', 'year', 'month', 'fuel_consumed']
+    fields = ['license_id', 'year', 'month', 'fuel_consumed']
     template_name = 'effectiveCar/monthly/edit_monthly.html'
 
     def get_success_url(self):

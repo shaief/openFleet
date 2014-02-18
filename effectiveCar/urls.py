@@ -50,4 +50,18 @@ urlpatterns = patterns('',
     url(r'^record/(?P<pk>\d+)/$',
         views.MonthlyView.as_view(),
         name='view_record'),
+
+    # Classifications:
+    url(r'^groups_list/$',
+        views.GroupsListView.as_view(),
+        name='groups_list'),
+    url(r'^add_group/$',
+        views.CreateGroupView.as_view(),
+        name='add_group'),
+    url(r'^edit_group/(?P<pk>\d+)/$',
+        views.UpdateGroupView.as_view(),
+        name='edit_group'),
+    url(r'^group/(?P<pk>\d+)/$',
+        views.GroupView.as_view(),
+        name='view_group'),
 )

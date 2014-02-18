@@ -49,7 +49,16 @@ class CreateCarView(CreateView):
 class UpdateCarView(UpdateView):
 
     model = Car
-    fields = ['license_id', 'current_owner']
+    fields = ['license_id',
+              'classification',
+              'car_model',
+              'maker',
+              'production_year',
+              'date_of_purchase',
+              'license_renewal_date',
+              'insurance_renewal_date',
+              'current_owner',
+              ]
     template_name = 'effectiveCar/cars/edit_car.html'
 
     def get_success_url(self):

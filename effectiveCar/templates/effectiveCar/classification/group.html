@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ classification }}
+{% endblock %}
+
+
+{% block content %}
+<h1 align='center'>Group: {{ classification.group }}</h1>
+
+</br>
+<table class="table table-striped">
+	<tr>
+		<th>License ID</th>
+		<th>Maker</th>
+		<th>Model</th>
+		<th>Owner</th>
+	</tr>
+	<tbody>
+	{% for car in classification.car_set.all %}
+		<tr>
+			<td><a href="{% url 'view_car' pk=car.id %}">{{ car.license_id }}</a></td>
+			<td>{{ car.maker }}</td>
+			<td>{{ car.car_model }}</td>
+			<td>{{ car.current_owner }}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+<a href="{% url 'edit_group' pk=classification.id %}"><button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-wrench"></span>
+	Edit
+</button></a>
+<a href="{% url 'add_group' %}"><button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-plus"></span>
+	Add a new one
+</button></a>
+{% endblock %}

@@ -8,11 +8,10 @@ Cars list
 
 {% block content %}
 <h4>Cars list:</h4>
-<ul>
 	{% for car in object_list %}
-	<li><a href="{% url 'view_car' pk=car.id %}">{{ car.license_id }}</a> [<a href="{% url 'edit_car' pk=car.id %}">edit</a>]</li>
+	<a href="{% url 'view_car' pk=car.id %}"><button type="button" class="btn btn-default btn-sm"><strong>{{ car.license_id }}</strong></button></a>
+	<a href="{% url 'edit_car' pk=car.id%}"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-wrench"></span> Edit</button></a></br>
 	{% endfor %}
-</ul>
 </br>
 <a href="{% url 'add_car' %}">
 <button type="button" class="btn btn-default btn-md">
