@@ -1,16 +1,18 @@
 from django.db import models
-
+from datetime import datetime
 
 class Owner(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField(null=True)
+    license_renewal_date = models.DateField()
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.name + " " + self.email
+        return self.name
 
 
 class Classification(models.Model):
     group = models.CharField(max_length=30)
+    description = models.TextField(null=True, blank=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.group
@@ -21,12 +23,13 @@ class Car(models.Model):
     classification = models.ForeignKey(Classification)
     car_model = models.CharField(max_length=20)
     maker = models.CharField(max_length=20)
+    color = models.CharField(max_length=20, default='white')
     production_year = models.SmallIntegerField()
     date_of_purchase = models.DateField()
     license_renewal_date = models.DateField()
     insurance_renewal_date = models.DateField()
     current_owner = models.ForeignKey(Owner)
-
+    status = models.CharField(max_length=30, default='Active')
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.license_id
 
@@ -36,6 +39,7 @@ class MonthlyRecord(models.Model):
     year = models.IntegerField()
     month = models.IntegerField()
     fuel_consumed = models.FloatField()
+    cost = models.FloatField()
 
     def __unicode__(self):  # Python 3: def __str__(self):
         return str(self.year) + " " + str(self.month)
@@ -62,23 +66,24 @@ class TreatmentType(models.Model):
 
 class Treatment(models.Model):
     license_id = models.ForeignKey(Car)
-    date = models.DateField()
-    treatment_type = models.CharField(max_length=50)
+    treatmenttype = models.ForeignKey(TreatmentType)
+    date = models.DateField(auto_now_add=True)
     vendor = models.CharField(max_length=30)
     cost = models.FloatField()
-    remarks = models.TextField()
+    remarks = models.TextField(null=True, blank=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.license_id + " " + date + " " + cost
+        return self.license_id + " " + self.date + " " + self.cost
 
 
 class KMRead(models.Model):
     license_id = models.ForeignKey(Car)
-    reported_at = models.DateTimeField()
+    reported_at = models.DateTimeField(default=datetime.now, blank=True)
     report_type = models.CharField(max_length=8)  # precise / estimate
     # precise is a real time, smartphnoe based read, estimate is less accurate.
-    timestamp = models.DateTimeField()  # if time is unknown, use 12:00
+    timestamp = models.DateTimeField(auto_now_add=True)
     value = models.FloatField()
+    comment = models.CharField(max_length=400, blank=True, null=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.license_id + " " + reported_at + " " + value
+        return self.license_id

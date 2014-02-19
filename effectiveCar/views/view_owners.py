@@ -24,7 +24,7 @@ class OwnerListView(ListView):
 class CreateOwnerView(CreateView):
 
     model = Owner
-    fields = ['name', 'email']
+    fields = ['name', 'email', 'license_renewal_date']
     template_name = 'effectiveCar/owners/edit_owner.html'
 
     def get_success_url(self):
@@ -40,7 +40,7 @@ class CreateOwnerView(CreateView):
 class UpdateOwnerView(UpdateView):
 
     model = Owner
-    fields = ['name', 'email']
+    fields = ['name', 'email', 'license_renewal_date']
     template_name = 'effectiveCar/owners/edit_owner.html'
 
     def get_success_url(self):

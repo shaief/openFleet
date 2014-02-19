@@ -10,24 +10,28 @@
 <h1 align='center'>Group: {{ classification.group }}</h1>
 
 </br>
-<table class="table table-striped">
-	<tr>
-		<th>License ID</th>
-		<th>Maker</th>
-		<th>Model</th>
-		<th>Owner</th>
-	</tr>
-	<tbody>
-	{% for car in classification.car_set.all %}
-		<tr>
-			<td><a href="{% url 'view_car' pk=car.id %}">{{ car.license_id }}</a></td>
-			<td>{{ car.maker }}</td>
-			<td>{{ car.car_model }}</td>
-			<td>{{ car.current_owner }}</td>
-		</tr>
-	{% endfor %}
-	</tbody>
-</table>
+<div class="row">
+	<div class="col-lg-6">
+		<table class="table table-striped">
+			<tr>
+				<th>License ID</th>
+				<th>Maker</th>
+				<th>Model</th>
+				<th>Owner</th>
+			</tr>
+			<tbody>
+			{% for car in classification.car_set.all %}
+				<tr>
+					<td><a href="{% url 'view_car' pk=car.id %}">{{ car.license_id }}</a></td>
+					<td>{{ car.maker }}</td>
+					<td>{{ car.car_model }}</td>
+					<td><a href="{% url 'view_owner' pk=car.current_owner.id %}">{{ car.current_owner }}</a></td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
 <a href="{% url 'edit_group' pk=classification.id %}"><button type="button" class="btn btn-default btn-md">
 	<span class="glyphicon glyphicon-wrench"></span>
 	Edit

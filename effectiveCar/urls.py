@@ -64,4 +64,18 @@ urlpatterns = patterns('',
     url(r'^group/(?P<pk>\d+)/$',
         views.GroupView.as_view(),
         name='view_group'),
+
+    # KM Reads:
+    url(r'^kmreads_list/$',
+        views.KMReadListView.as_view(),
+        name='kmreads_list'),
+    url(r'^add_kmread/$',
+        views.CreateKMReadView.as_view(),
+        name='add_kmread'),
+    url(r'^edit_kmread/(?P<pk>\d+)/$',
+        views.UpdateKMReadView.as_view(),
+        name='edit_kmread'),
+    url(r'^kmread/(?P<pk>\d+)/$',
+        views.KMReadView.as_view(),
+        name='view_kmread'),
 )

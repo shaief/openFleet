@@ -2,28 +2,28 @@
 {% load static %}
 
 {% block title %}
-Groups list
+KM reads list
 {% endblock %}
 
 {% block content %}
-<h4>Groups list:</h4>
+<h4>KM reads list:</h4>
 <ul>
-	{% for group in object_list %}
+	{% for object in object_list %}
 	<li>
-		<a href="{% url 'view_group' pk=group.id %}">
-			{{ group.group }}
+		<a href="{% url 'view_kmread' pk=object.id %}">
+			{{ object.license_id }} {{ object.reported_at }}
 		</a>
-		[<a href="{% url 'edit_group' pk=group.id %}">
+		[<a href="{% url 'edit_kmread' pk=object.id %}">
 		edit
 		</a>]
 	</li>
 	{% endfor %}
 </ul>
 </br>
-<a href="{% url 'add_group' %}">
+<a href="{% url 'add_kmread' %}">
 <button type="button" class="btn btn-default btn-md">
 	<span class="glyphicon glyphicon-plus"></span>
-	Add a group
+	Add KM read
 </button>
 </a>
 

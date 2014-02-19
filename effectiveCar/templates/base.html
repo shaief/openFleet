@@ -44,10 +44,11 @@
           <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li><a href="{% url 'groups_list' %}">Groups list</a></li>
-              <li><a href="{% url 'owners_list' %}">Drivers</a></li>
-              <li><a href="{% url 'cars_list' %}">Cars list</a></li>
-              <li><a href="{% url 'records_list' %}">Monthly records</a></li>
+              <li><a href="{% url 'groups_list' %}"><span class="glyphicon glyphicon-list"/> Groups list</a></li>
+              <li><a href="{% url 'owners_list' %}"><span class="glyphicon glyphicon-list"/> Drivers</a></li>
+              <li><a href="{% url 'cars_list' %}"><span class="glyphicon glyphicon-list"/> Cars list</a></li>
+              <li><a href="{% url 'records_list' %}"><span class="glyphicon glyphicon-list"/> Monthly records</a></li>
+              <li><a href="{% url 'kmreads_list' %}"><span class="glyphicon glyphicon-list"/> KM Read</a></li>
               <li><a href="#">Statistics</a></li>
 
                 {% block navbar-list %}

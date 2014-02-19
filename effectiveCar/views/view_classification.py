@@ -35,7 +35,7 @@ class CreateGroupView(CreateView):
 
 class UpdateGroupView(UpdateView):
 
-    mmodel = Classification
+    model = Classification
     fields = ['group']
     template_name = 'effectiveCar/classification/edit_group.html'
 

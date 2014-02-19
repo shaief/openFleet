@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ kmread }}
+{% endblock %}
+
+
+{% block content %}
+<h1 align='center'>KM read for car: {{ kmread.license_id }}</h1>
+
+</br>
+<table class="table table-striped">
+	<tr>
+		<th>License ID</th>
+		<th>Report type</th>
+		<th>Reported at</th>
+		<th>Value</th>
+	</tr>
+	<tbody>
+		<tr>
+			<td><a href="{% url 'view_car' pk=kmread.license_id.id %}">{{ kmread.license_id }}</a></td>
+			<td>{{ kmread.report_type }}</td>
+			<td>{{ kmread.timestamp }}</td>
+			<td>{{ kmread.value }}</td>
+		</tr>
+	</tbody>
+</table>
+<a href="{% url 'edit_kmread' pk=kmread.id %}"><button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-wrench"></span>
+	Edit
+</button></a>
+<a href="{% url 'add_kmread' %}"><button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-plus"></span>
+	Add a new KM read
+</button></a>
+{% endblock %}
