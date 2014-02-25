@@ -44,16 +44,20 @@
 				<td>{{ monthlyrecord.month }}/{{ monthlyrecord.year }}</td>
 			</tr>
 			<tr>		
-				<td>Total fuel consumed: </td>
-				<td>{{ monthlyrecord.fuel_consumed }} [liters]</td>
+				<td>Total fuel consumed [liters]: </td>
+				<td>{{ monthlyrecord.fuel_consumed }}</td>
 			</tr>
 			<tr>		
-				<td>Total fuel cost: </td>
-				<td>{{ monthlyrecord.cost }} [NIS]</td>
+				<td>Total fuel cost [NIS]: </td>
+				<td>{{ monthlyrecord.cost }}</td>
 			</tr>
 			<tr>		
-				<td>Total fuel cost: </td>
-				<td>{{ monthlyrecord.cost }} [NIS]</td>
+				<td>Total KM: </td>
+				<td>{{ monthlyrecord.km }}</td>
+			</tr>
+			<tr>		
+				<td>Average [km/Liter]: </td>
+				<td>{{ monthlyrecord.km }}/{{ monthlyrecord.fuel_consumed }}</td>
 			</tr>
 		</tbody>
 		</table>

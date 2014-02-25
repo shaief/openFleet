@@ -11,20 +11,16 @@ from effectiveCar.models import MonthlyRecord
 
 
 class MonthlyListView(ListView):
-    """docstring for TemplateView"models.
-    def __init__(self, arg):
-        super(TemplateView,models.).__init__()
-        self.arg = arg
-    """
+
     model = MonthlyRecord
-    fields = ['license_id', 'year', 'month', 'fuel_consumed', 'cost']
+    fields = ['license_id', 'year', 'month', 'fuel_consumed', 'cost', 'km']
     template_name = 'effectiveCar/monthly/records_list.html'
 
 
 class CreateMonthlyView(CreateView):
 
     model = MonthlyRecord
-    fields = ['license_id', 'year', 'month', 'fuel_consumed', 'cost']
+    fields = ['license_id', 'year', 'month', 'fuel_consumed', 'cost', 'km']
     template_name = 'effectiveCar/monthly/edit_monthly.html'
 
     def get_success_url(self):
@@ -40,7 +36,7 @@ class CreateMonthlyView(CreateView):
 class UpdateMonthlyView(UpdateView):
 
     model = MonthlyRecord
-    fields = ['license_id', 'year', 'month', 'fuel_consumed', 'cost']
+    fields = ['license_id', 'year', 'month', 'fuel_consumed', 'cost', 'km']
     template_name = 'effectiveCar/monthly/edit_monthly.html'
 
     def get_success_url(self):

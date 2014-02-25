@@ -11,11 +11,7 @@ from effectiveCar.models import Owner
 
 
 class OwnerListView(ListView):
-    """docstring for TemplateView"models.
-    def __init__(self, arg):
-        super(TemplateView,models.).__init__()
-        self.arg = arg
-    """
+
     model = Owner
     fields = ['license_id', 'current_owner']
     template_name = 'effectiveCar/owners/owners_list.html'

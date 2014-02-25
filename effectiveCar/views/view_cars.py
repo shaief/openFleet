@@ -11,11 +11,7 @@ from effectiveCar.models import Car
 
 
 class CarListView(ListView):
-    """docstring for TemplateView"models.
-    def __init__(self, arg):
-        super(TemplateView,models.).__init__()
-        self.arg = arg
-    """
+
     model = Car
     fields = ['license_id', 'current_owner', 'car_model', 'maker']
     template_name = 'effectiveCar/cars/cars_list.html'

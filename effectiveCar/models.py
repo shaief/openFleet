@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 
+
 class Owner(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField(null=True)
@@ -30,6 +31,7 @@ class Car(models.Model):
     insurance_renewal_date = models.DateField()
     current_owner = models.ForeignKey(Owner)
     status = models.CharField(max_length=30, default='Active')
+
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.license_id
 
@@ -40,6 +42,7 @@ class MonthlyRecord(models.Model):
     month = models.IntegerField()
     fuel_consumed = models.FloatField()
     cost = models.FloatField()
+    km = models.FloatField()
 
     def __unicode__(self):  # Python 3: def __str__(self):
         return str(self.year) + " " + str(self.month)
@@ -84,6 +87,45 @@ class KMRead(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     value = models.FloatField()
     comment = models.CharField(max_length=400, blank=True, null=True)
-
+    
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.license_id
+
+class City(models.Model):
+    name = models.CharField(max_length=50)
+    
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.name
+
+class Parking(models.Model):
+    license_id = models.ForeignKey(Car)
+    city = models.ForeignKey(City)
+    date = models.DateField(default=datetime.today())
+    cost = models.FloatField()
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.license_id + " " + self.city
+
+class Road6(models.Model):
+    license_id = models.ForeignKey(Car)
+    date = models.DateField(default=datetime.today())
+    cost = models.FloatField()
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.license_id + " " + str(self.date)
+
+class Accidents(models.Model):
+    license_id = models.ForeignKey(Car)
+    driver = models.CharField(max_length=50, null=True, blank=True)
+    date = models.DateField(default=datetime.today())
+    cost = models.FloatField()
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to='accidents/',
+                              default='accidents/None/no-img.jpg')
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.license_id + " " + str(self.cost)
+
+#TODO:
+# 1. accidents history.
+# 2. treatment history.

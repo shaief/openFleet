@@ -78,4 +78,18 @@ urlpatterns = patterns('',
     url(r'^kmread/(?P<pk>\d+)/$',
         views.KMReadView.as_view(),
         name='view_kmread'),
+
+    # Statistics:
+    url(r'^statistics/$',
+        views.StatisticsGeneral,
+        name='statistics'),
+    url(r'^statistics_json/$',
+        views.StatisticsGeneral_json,
+        name='statistics_json'),
+    url(r'^statistics/$',
+        views.StatisticsGeneral,
+        name='statistics'),
+    url(r'^statistics/$',
+        views.StatisticsGeneral,
+        name='statistics'),
 )

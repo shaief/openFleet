@@ -1,92 +1,132 @@
 {% load static %}
 <!DOCTYPE html>
 <html xmlns:xlink="http://www.w3.org/1999/xlink">
-  <head>
+<head>
 	{% block head %}
 	{% endblock %}
 	<title>
-    openFleet - 
+		openFleet - 
 		{% block title %}
 		{% endblock %}
 	</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'css/submenus.css' %}" rel="stylesheet">
-    <script type="text/javascript" src="{% static 'lib/d3.js' %}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap -->
+	<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+	<link href="{% static 'css/submenus.css' %}" rel="stylesheet">
+	<link href="{% static 'font-awesome-4.0.3/css/font-awesome.css' %}" rel="stylesheet">
+	<script type="text/javascript" src="{% static 'lib/d3.js' %}"></script>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!-- [if lt IE 9]
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    [endif] -->
-    <meta charset="utf-8">
+      [endif] -->
+      <meta charset="utf-8">
   </head>
   {# <body dir="rtl"> #}
-  	
-    <!-- Wrap all page content here -->
-    <div id="wrap">
 
-      <!-- Fixed navbar -->
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{% url 'home' %}">openFleet</a>
-          </div>
-          <div class="collapse navbar-collapse">
+  <!-- Wrap all page content here -->
+  <div id="wrap">
 
-            <ul class="nav navbar-nav">
-              <li><a href="{% url 'groups_list' %}"><span class="glyphicon glyphicon-list"/> Groups list</a></li>
-              <li><a href="{% url 'owners_list' %}"><span class="glyphicon glyphicon-list"/> Drivers</a></li>
-              <li><a href="{% url 'cars_list' %}"><span class="glyphicon glyphicon-list"/> Cars list</a></li>
-              <li><a href="{% url 'records_list' %}"><span class="glyphicon glyphicon-list"/> Monthly records</a></li>
-              <li><a href="{% url 'kmreads_list' %}"><span class="glyphicon glyphicon-list"/> KM Read</a></li>
-              <li><a href="#">Statistics</a></li>
+  	<!-- Fixed navbar -->
+  	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  		<div class="container">
+  			<div class="navbar-header">
+  				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+  					<span class="sr-only">Toggle navigation</span>
+  					<span class="icon-bar"></span>
+  					<span class="icon-bar"></span>
+  					<span class="icon-bar"></span>
+  				</button>
+  				<a class="navbar-brand" href="{% url 'home' %}">openFleet</a>
+  			</div>
+  			<div class="collapse navbar-collapse">
+  				<ul class="nav navbar-nav">
+  					<li>
+  						<div class="btn-group">
+  							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+  								Add Basic data <span class="caret"></span>
+  							</button>
+  							<ul class="dropdown-menu" role="menu">
+  								<li><a href="{% url 'add_group' %}"><i class="fa fa-ambulance"></i> Group</a></li>
+  								<li><a href="{% url 'add_owner' %}"><i class="glyphicon glyphicon-user"></i> Driver</a></li>
+  								<li><a href="{% url 'add_car' %}"><i class="fa fa-truck"></i> Car</a></li>
+  								</ul>
+  						</div>
+  					</li>      		
+  					<li>
+  						<div class="btn-group">
+  							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+  								Add reports <span class="caret"></span>
+  							</button>
+  							<ul class="dropdown-menu" role="menu">
+  								<li><a href="{% url 'add_record' %}"><span class="glyphicon glyphicon-list"/> Monthly records</a></li>
+  								<li><a href="{% url 'add_kmread' %}"><span class="glyphicon glyphicon-list"/> KM Read</a></li>	
+  							</ul>
+  						</div>
+  					</li>      		
+  					<li>
+  					<li>
+  						<div class="btn-group">
+  							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+  								View Basic data <span class="caret"></span>
+  							</button>
+  							<ul class="dropdown-menu" role="menu">
+  								<li><a href="{% url 'groups_list' %}"><span class="glyphicon glyphicon-list"/> Groups list</a></li>
+  								<li><a href="{% url 'owners_list' %}"><span class="glyphicon glyphicon-list"/> Drivers</a></li>
+  								<li><a href="{% url 'cars_list' %}"><span class="glyphicon glyphicon-list"/> Cars list</a></li>
+  								<li><a href="{% url 'records_list' %}"><span class="glyphicon glyphicon-list"/> Monthly records</a></li>
+  								<li><a href="{% url 'kmreads_list' %}"><span class="glyphicon glyphicon-list"/> KM Read</a></li>	
+  								</ul>
+  						</div>
+  					</li>
+  						<div class="btn-group">
+	  						<a href="{% url 'statistics' %}">
+	  							<button type="button" class="btn btn-info btn-md">
+	  								<i class="fa fa-bar-chart-o"></i>
+	  								View statistics
+	  							</button>
+	  						</a>
+  						</div>
+  					</li>
+  					{% block navbar-list %}
+  					{% endblock %}
+  				</ul>
+  					</div><!--/.nav-collapse -->
+  				</div>
+  			</div>
 
-                {% block navbar-list %}
-                {% endblock %}
+  			<!-- Begin page content -->
+  			<div class="container">
+  				<br/>
+  				<br/>
+  				<br/>
+  				{% block content %}
+  				{% endblock %}
+  				{% block body_js %}
 
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
+  				{% endblock body_js %}
+  			</div>
 
-    <!-- Begin page content -->
-  	<div class="container">
-			<br/>
-			<br/>
-			<br/>
-			{% block content %}
-			{% endblock %}
-			{% block body_js %}
-    		
-    		{% endblock body_js %}
-  	</div>
+  			<div id="footer">
+  				<div class="container">
+  					<div class="text-muted" align="center">openFleet - manage your fleet</br>
+  						02/2014. <a href="http://shaief.com">Shai Efrati</a>
+  					</div>
+  				</div>
+  			</div>
 
-<!--     <div id="footer">
-      <div class="container">
-        <div class="text-muted" align="center">נתוני איכות אוויר בזמן אמת מאתר <a>http://svivaaqm.net</a>. האתר בהרצה. אין לסמוך על הנתונים המוצגים לצורך קבלת החלטות.</br>
-        Since 12/2013. Born at <a href="https://hackita.hasadna.org.il/">Hackita</a>
-        </div>
-      </div>
-    </div> -->
+  			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  			<script src="https://code.jquery.com/jquery.js"></script>
+  			<!-- Include all compiled plugins (below), or include individual files as needed -->
+  			<script src="{% static 'js/bootstrap.min.js' %}"></script>
+  			<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+  			<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-
-    {% block scripts %}
-    {% endblock %}
-  </body>
-</html>
+  			{% block scripts %}
+  			{% endblock %}
+  		</body>
+  		</html>
 

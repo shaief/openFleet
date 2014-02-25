@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Car, Owner, Classification
+from models import Car, Owner, Classification, MonthlyRecord
 
 
 # class CarAdmin(admin.ModelAdmin):
@@ -24,3 +24,4 @@ from models import Car, Owner, Classification
 admin.site.register(Owner)
 admin.site.register(Car)
 admin.site.register(Classification)
+admin.site.register(MonthlyRecord)

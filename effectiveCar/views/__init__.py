@@ -4,3 +4,4 @@ from view_owners import *
 from view_monthly import *
 from view_classification import *
 from view_kmread import *
+from view_statistics import *
