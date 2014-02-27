@@ -8,34 +8,34 @@ Statistics
 {% block content %}
 <div class="row" align="center">
 	<a href="{% url 'add_kmread' %}">
-		<button type="button" class="btn btn-default btn-lg">
+		<button type="button" class="btn btn-success btn-lg">
 			<i class="fa fa-calendar"></i>
 			Month
 		</button>
 	</a>
 
 	<a href="{% url 'add_kmread' %}">
-		<button type="button" class="btn btn-default btn-lg">
+		<button type="button" class="btn btn-success btn-lg">
 			<i class="fa fa-ambulance"></i>
 			Group
 		</button>
 	</a>
 
 	<a href="{% url 'add_kmread' %}">
-		<button type="button" class="btn btn-default btn-lg">
+		<button type="button" class="btn btn-success btn-lg">
 			<i class="fa fa-truck"></i>
 			Car
 		</button>
 	</a>
 
 	<a href="{% url 'add_kmread' %}">
-		<button type="button" class="btn btn-default btn-lg">
+		<button type="button" class="btn btn-success btn-lg">
 			<i class="fa fa-user"></i>
 			Driver
 		</button>
 	</a>
 </div>
-
+<svg class="mainbuttons"></svg>
 <div class="row" align="center">
 	<div class="col-lg-2">
 		<h4>Cars</h4>
@@ -89,12 +89,6 @@ Statistics
 </br>
 <div id="bars"></div>
 
-<a href="{% url 'add_kmread' %}">
-	<button type="button" class="btn btn-default btn-md">
-		<span class="glyphicon glyphicon-plus"></span>
-		Add KM read
-	</button>
-</a>
 
 <script type="text/javascript">
 		//Create SVG element
@@ -102,44 +96,22 @@ Statistics
 		// a global
 		var w = 1000;
 		var h = 200;
-		var hlabels = h + 20;
-		var htimestamp = hlabels + 20;
-		var barPadding = 3;
-		var barWidth = 25;
-		var svg;
 
-		d3.json("{% url 'statistics_json' %}", function(error, json) {
-			if (error) return console.warn(error);
-			//var datasetValues = json.costs;
-			//var datasetParams = json.params;
-			//var timestamp = json.timestamp;
-			console.log([json]);	
+		var svgButtons = d3.select("#mainbuttons")
+			.append("svg")
+			.attr("width", w/2)
+			.attr("height", 20)
 
-			data = [json];
-	        //Create SVG element
-	        var svg = d3.select("#bars")
-	        .append("svg")
-	        .attr("width", w)
-	        .attr("height", h);
+		var buttonsLabels = ['Car','Driver'];
 
-	        svg.selectAll("rect")
-	        .data(data)
-	        .enter()
-	        .append("rect")
-	        .attr("x", function(d, i){return i*(barWidth+barPadding);})
-	        .attr("y", function(d) {return h/2 - (d.cost * 4);})
-	        .attr("width", barWidth)
-	        .attr("height", function(d) {
-	        	return d.cost * 4;
-	        })
-	        .attr("fill", function(d) {
-	        	return "rgb(0, 0, " + (d.cost * 10) + ")";
-	        })
-	        .append("text")
-	        .text(function(d){return d.year+"\n"+d.cost;})
-	        .append("svg:title")
-	        .text(function(d) { return d.year +"\n" + d.cost; });
-	    });
+		svgButtons.selectAll("button")
+			.data(buttonsLabels)
+			.enter()
+			.append("button")
+			.attr("class", "btn btn-success btn-lg")
+			.text(function(d){ return d;})
+			.append("svg:title");
+
 </script>
 
 
