@@ -20,13 +20,17 @@ class Classification(models.Model):
 
 
 class Car(models.Model):
+    This_Year = datetime.today().year
+    CHOICES = [(i,i) for i in range(This_Year-5, This_Year+1)]
+    nickname =models.CharField(max_length=100)
     license_id = models.CharField(max_length=9)
     classification = models.ForeignKey(Classification)
     car_model = models.CharField(max_length=20)
     maker = models.CharField(max_length=20)
     color = models.CharField(max_length=20, default='white')
-    production_year = models.SmallIntegerField()
+    production_year = models.SmallIntegerField(choices=CHOICES)
     date_of_purchase = models.DateField()
+    km_read_at_purchase = models.IntegerField()
     license_renewal_date = models.DateField()
     insurance_renewal_date = models.DateField()
     current_owner = models.ForeignKey(Owner)
