@@ -8,4 +8,129 @@ home
 
 {% block content %}
 <h1 align='center'>Index page</h1>
+<div class="row">
+	<div class="col-md-3">
+		<table class="table table-bordered">
+			<thead class="info">
+				<td>
+					<h4 align="center">What would you like to do</h4>
+				</td>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<h4><a href="{% url 'add_group' %}"><button type="button" class="btn btn-info btn-md"><i class="fa fa-ambulance"></i> Add a classification</button></a></h4>
+						<h4><a href="{% url 'add_owner' %}"><button type="button" class="btn btn-info btn-md"><i class="glyphicon glyphicon-user"></i> Add an owner</button></a></h4>
+						<h4><a href="{% url 'add_car' %}"><button type="button" class="btn btn-info btn-md"><i class="fa fa-truck"></i> Add a car</button></a></h4>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>Search</h4>
+						{% for c in license_next_month %}
+						<h5 class="label label-warning">{{ c.license_id }} {{ c.license_renewal_date|date:"d/m/Y" }}</h5><br>
+						{% endfor %}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-3">
+		<table class="table table-bordered">
+			<thead class="info">
+				<td>
+					<h3 align="center">License renewals</h3>
+				</td>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<h4>In less than a week:</h4>
+						{% for c in license_next_week %}
+						<h4 class="label label-danger">{{ c.license_id }} {{ c.license_renewal_date|date:"d/m/Y" }}</h4>
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>In less than a month:</h4>
+						{% for c in license_next_month %}
+						<h5 class="label label-warning">{{ c.license_id }} {{ c.license_renewal_date|date:"d/m/Y" }}</h5><br>
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>In less than a year:</h4>
+						{% for c in license_next_year %}
+						<h5 class="label label-success">{{ c.license_id }} {{ c.license_renewal_date|date:"d/m/Y" }}</h5>
+						{% endfor %}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-3">
+		<table class="table table-bordered">
+			<thead class="info">
+				<td>
+					<h3 align="center">Insurance renewals</h3>
+				</td>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<h4>In less than a week:</h4>
+						{% for c in insurance_next_week %}
+						<h5 class="label label-danger">{{ c.license_id }} {{ c.insurance_renewal_date|date:"d/m/Y" }}</h5><br>
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>In less than a month:</h4>
+						{% for c in insurance_next_month %}
+						<h5 class="label label-warning">{{ c.license_id }} {{ c.insurance_renewal_date|date:"d/m/Y" }}</h5><br>
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>In less than a year:</h4>
+						{% for c in insurance_next_year %}
+						<h5 class="label label-success">{{ c.license_id }} {{ c.insurance_renewal_date|date:"d/m/Y" }}</h5>
+						{% endfor %}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-3">
+		<table class="table table-bordered">
+			<thead class="info">
+				<td>
+					<h3 align="center">Future car treatment</h3>
+				</td>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<h4>In less than 1,000 km:</h4>
+						{% for c in car_next_week %}
+						<h5 class="label label-danger">{{ c.license_id }} {{ c.insurance_renewal_date|date:"d/m/Y" }}</h5><br>
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>In less than 5,000 km:</h4>
+						{% for c in insurance_next_month %}
+						<h5 class="label label-warning">{{ c.license_id }} {{ c.insurance_renewal_date|date:"d/m/Y" }}</h5><br>
+						{% endfor %}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
 {% endblock %}
