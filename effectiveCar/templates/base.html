@@ -17,6 +17,18 @@
 	<link href="{% static 'font-awesome-4.0.3/css/font-awesome.css' %}" rel="stylesheet">
 	<script type="text/javascript" src="{% static 'lib/d3.js' %}"></script>
 
+
+<style>
+  .btn-xs{
+    margin-bottom: 5px;
+  }
+ td .a { 
+  display:block;
+  width:100%;
+  height:100%;
+  text-decoration:none;"
+}
+</style>
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!-- [if lt IE 9]
@@ -24,114 +36,116 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
       [endif] -->
       <meta charset="utf-8">
-  </head>
-  {# <body dir="rtl"> #}
+    </head>
+    {# <body dir="rtl"> #}
 
-  <!-- Wrap all page content here -->
-  <div id="wrap">
+    <!-- Wrap all page content here -->
+    <div id="wrap">
 
-  	<!-- Fixed navbar -->
-  	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  		<div class="container">
-  			<div class="navbar-header">
-  				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-  					<span class="sr-only">Toggle navigation</span>
-  					<span class="icon-bar"></span>
-  					<span class="icon-bar"></span>
-  					<span class="icon-bar"></span>
-  				</button>
-  				<a class="navbar-brand" href="{% url 'home' %}">openFleet</a>
-  				<img src="{% static 'images/cleanetica.gif' %}"/>
-  			</div>
-  			<div class="collapse navbar-collapse">
-  				<ul class="nav navbar-nav">
-  					<li>
-  						<div class="btn-group">
-  							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-  								Add Basic data <span class="caret"></span>
-  							</button>
-  							<ul class="dropdown-menu" role="menu">
-  								<li><a href="{% url 'add_group' %}"><i class="fa fa-ambulance"></i> Group</a></li>
-  								<li><a href="{% url 'add_owner' %}"><i class="glyphicon glyphicon-user"></i> Driver</a></li>
-  								<li><a href="{% url 'add_car' %}"><i class="fa fa-truck"></i> Car</a></li>
-  								</ul>
-  						</div>
-  					</li>      		
-  					<li>
-  						<div class="btn-group">
-  							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-  								Add reports <span class="caret"></span>
-  							</button>
-  							<ul class="dropdown-menu" role="menu">
-  								<li><a href="{% url 'add_record' %}"><span class="glyphicon glyphicon-list"/> Monthly records</a></li>
-  								<li><a href="{% url 'add_kmread' %}"><span class="glyphicon glyphicon-list"/> KM Read</a></li>	
-  							</ul>
-  						</div>
-  					</li>      		
-  					<li>
-  					<li>
-  						<div class="btn-group">
-  							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-  								View Basic data <span class="caret"></span>
-  							</button>
-  							<ul class="dropdown-menu" role="menu">
-  								<li><a href="{% url 'groups_list' %}"><span class="glyphicon glyphicon-list"/> Groups list</a></li>
-  								<li><a href="{% url 'owners_list' %}"><span class="glyphicon glyphicon-list"/> Drivers</a></li>
-  								<li><a href="{% url 'cars_list' %}"><span class="glyphicon glyphicon-list"/> Cars list</a></li>
-  								<li><a href="{% url 'records_list' %}"><span class="glyphicon glyphicon-list"/> Monthly records</a></li>
-  								<li><a href="{% url 'kmreads_list' %}"><span class="glyphicon glyphicon-list"/> KM Read</a></li>	
-  								</ul>
-  						</div>
-  					</li>
-  						<div class="btn-group">
-	  						<a href="{% url 'statistics' %}">
-	  							<button type="button" class="btn btn-info btn-md">
-	  								<i class="fa fa-bar-chart-o"></i>
-	  								View statistics
-	  							</button>
-	  						</a>
-  						</div>
-  					</li>
-  					{% block navbar-list %}
-  					{% endblock %}
-  				</ul>
-  					</div><!--/.nav-collapse -->
-  				</div>
-  			</div>
+     <!-- Fixed navbar -->
+     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+       <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="{% url 'home' %}">openFleet</a>
+       <img src="{% static 'images/cleanetica.gif' %}"/>
+     </div>
+     <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+       <li>
+        <div class="btn-group">
+         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Add Basic data <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="{% url 'add_group' %}"><i class="fa fa-ambulance"></i> Group</a></li>
+          <li><a href="{% url 'add_owner' %}"><i class="glyphicon glyphicon-user"></i> Driver</a></li>
+          <li><a href="{% url 'add_car' %}"><i class="fa fa-truck"></i> Car</a></li>
+        </ul>
+      </div>
+    </li>      		
+    <li>
+      <div class="btn-group">
+       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Add reports <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="{% url 'add_record' %}"><span class="glyphicon glyphicon-list"/> Monthly records</a></li>
+        <li><a href="{% url 'add_kmread' %}"><span class="glyphicon glyphicon-list"/> KM Read</a></li>	
+      </ul>
+    </div>
+  </li>      		
+  <li>
+   <li>
+    <div class="btn-group">
+     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+      View Basic data <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="{% url 'groups_list' %}"><span class="glyphicon glyphicon-list"/> Groups list</a></li>
+      <li><a href="{% url 'owners_list' %}"><span class="glyphicon glyphicon-list"/> Drivers</a></li>
+      <li><a href="{% url 'cars_list' %}"><span class="glyphicon glyphicon-list"/> Cars list</a></li>
+      <li><a href="{% url 'records_list' %}"><span class="glyphicon glyphicon-list"/> Monthly records</a></li>
+      <li><a href="{% url 'kmreads_list' %}"><span class="glyphicon glyphicon-list"/> KM Read</a></li>	
+    </ul>
+  </div>
+</li>
+<li>
+  <div class="btn-group">
+   <a href="{% url 'statistics' %}">
+    <button type="button" class="btn btn-info btn-md">
+     <i class="fa fa-bar-chart-o"></i>
+     View statistics
+   </button>
+ </a>
+</div>
+</li>
+</li>
+{% block navbar-list %}
+{% endblock %}
+</ul>
+</div><!--/.nav-collapse -->
+</div>
+</div>
 
-  			<!-- Begin page content -->
-  			<div class="container">
-  				<br/>
-  				<br/>
-  				<br/>
-  				{% block content %}
-  				{% endblock %}
-  				{% block body_js %}
+<!-- Begin page content -->
+<div class="container">
+  <br/>
+  <br/>
+  <br/>
+  {% block content %}
+  {% endblock %}
+  {% block body_js %}
 
-  				{% endblock body_js %}
-  			</div>
+  {% endblock body_js %}
+</div>
 
-  			<div id="footer">
-  				<div class="container">
-  					<div class="text-muted" align="center">openFleet - manages your fleet since 02/2014.</br>
-  					<a href="http://shaief.com">Shai Efrati</a> //
-  					<a href="https://github.com/shaief/openFleet">project page on GitHub</a>
-  					</div>
-  					<div align="center">
-  						<img src="{% static 'images/SElogo25x25.png' %}"/>
-  					</div>
-  				</div>
-  			</div>
+<div id="footer">
+  <div class="container">
+   <div class="text-muted" align="center">openFleet - manages your fleet since 02/2014.</br>
+     <a href="http://shaief.com">Shai Efrati</a> //
+     <a href="https://github.com/shaief/openFleet">project page on GitHub</a>
+   </div>
+   <div align="center">
+    <img src="{% static 'images/SElogo25x25.png' %}"/>
+  </div>
+</div>
+</div>
 
-  			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  			<script src="https://code.jquery.com/jquery.js"></script>
-  			<!-- Include all compiled plugins (below), or include individual files as needed -->
-  			<script src="{% static 'js/bootstrap.min.js' %}"></script>
-  			<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-  			<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
-  			{% block scripts %}
-  			{% endblock %}
-  		</body>
-  		</html>
+{% block scripts %}
+{% endblock %}
+</body>
+</html>
 

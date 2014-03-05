@@ -21,9 +21,9 @@ class Classification(models.Model):
 
 class Car(models.Model):
     This_Year = datetime.today().year
-    CHOICES = [(i,i) for i in range(This_Year-5, This_Year+1)]
-    nickname =models.CharField(max_length=100)
-    license_id = models.CharField(max_length=9)
+    CHOICES = [(i, i) for i in range(This_Year-5, This_Year+1)]
+    nickname = models.CharField(max_length=100)
+    license_id = models.CharField(max_length=9, unique=True)
     classification = models.ForeignKey(Classification)
     car_model = models.CharField(max_length=20)
     maker = models.CharField(max_length=20)

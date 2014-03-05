@@ -10,21 +10,21 @@ home
 <h1 align='center'>Notifications</h1>
 <div class="row">
 	<div class="col-md-2">
-		<table class="table table-bordered table-condensed">
+		<table class="table table-condensed">
 			<thead class="info">
 				<td>
-					<h4 align="center">What would you like to do</h4>
+					<h3 align="center">What would you like to do</h3>
 				</td>
 			</thead>
 			<tbody>
 				<tr><td>
-				<a href="{% url 'add_group' %}" style="display:block;width:100%;height:100%;text-decoration:none;"><i class="fa fa-ambulance"></i> Add a classification</a>
+				<a href="{% url 'add_group' %}"><button class="btn btn-info btn-md"  style="width:100%"><i class="fa fa-ambulance"></i> Add a classification</button></a>
 				</td></tr>
 				<tr><td>
-				<a href="{% url 'add_owner' %}"><i class="glyphicon glyphicon-user"></i> Add an owner</button></a>
+				<a href="{% url 'add_owner' %}"><button class="btn btn-info btn-md"  style="width:100%"><i class="glyphicon glyphicon-user"></i> Add an owner</button></a>
 				</td></tr>
 				<tr class="info"><td>
-				<a href="{% url 'add_car' %}"><i class="fa fa-truck"></i> Add a car</button></a>
+				<a href="{% url 'add_car' %}"><button class="btn btn-info btn-md"  style="width:100%"><i class="fa fa-truck"></i> Add a car</button></a>
 				</td></tr>
 				<tr>
 					<td>
@@ -99,7 +99,7 @@ home
 						<h4>In less than a month:</h4>
 						{% for c in insurance_next_month %}
 						<a href="{% url 'edit_car' pk=c.id%}">
-							<button type="button" class="btn btn-warning btn-xs">{{ c.license_id }} {{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
+							<button type="button" class="btn btn-warning btn-xs">{{ c.license_id }}<br>{{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
 						</a>
 						{% endfor %}
 					</td>
@@ -109,7 +109,7 @@ home
 						<h4>In less than a year:</h4>
 						{% for c in insurance_next_year %}
 						<a href="{% url 'edit_car' pk=c.id%}">
-							<button type="button" class="btn btn-success btn-xs">{{ c.license_id }} {{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
+							<button type="button" class="btn btn-success btn-xs">{{ c.license_id }}<br>{{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
 						</a>
 						{% endfor %}
 					</td>
