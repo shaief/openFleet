@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Accidents list
+{% endblock %}
+
+{% block content %}
+<h4>Accidents list:</h4>
+<ul>
+	{% for object in object_list %}
+	<li>
+		<a href="{% url 'view_accident' pk=object.id %}">
+			{{ object.license_id }} {{ object.reported_at }}
+		</a>
+		[<a href="{% url 'edit_accident' pk=object.id %}">
+		edit
+		</a>]
+	</li>
+	{% endfor %}
+</ul>
+</br>
+<a href="{% url 'add_accident' %}">
+<button type="button" class="btn btn-default btn-md">
+	<span class="glyphicon glyphicon-plus"></span>
+	Add accident report
+</button>
+</a>
+
+{% endblock %}

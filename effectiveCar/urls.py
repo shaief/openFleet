@@ -79,6 +79,20 @@ urlpatterns = patterns('',
         views.KMReadView.as_view(),
         name='view_kmread'),
 
+    # Accidents:
+    url(r'^accidents_list/$',
+        views.AccidentsListView.as_view(),
+        name='accidents_list'),
+    url(r'^add_accident/$',
+        views.CreateAccidentView.as_view(),
+        name='add_accident'),
+    url(r'^edit_accident/(?P<pk>\d+)/$',
+        views.UpdateAccidentView.as_view(),
+        name='edit_accident'),
+    url(r'^accident/(?P<pk>\d+)/$',
+        views.AccidentView.as_view(),
+        name='view_accident'),
+
     # Statistics:
     url(r'^statistics/$',
         views.StatisticsGeneral,

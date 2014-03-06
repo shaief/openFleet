@@ -3,8 +3,11 @@ from datetime import datetime
 
 
 class Owner(models.Model):
+    # CHOICES = ['A2', 'A1', 'A', 'B', 'C1', 'C',
+    #            'D', 'D1', 'D2', 'D3', 'E', '1']
     name = models.CharField(max_length=30)
     email = models.EmailField(null=True)
+    license_category = models.CharField(max_length=2)
     license_renewal_date = models.DateField()
 
     def __unicode__(self):  # Python 3: def __str__(self):
@@ -74,6 +77,7 @@ class TreatmentType(models.Model):
 class Treatment(models.Model):
     license_id = models.ForeignKey(Car)
     treatmenttype = models.ForeignKey(TreatmentType)
+    reported_at = models.DateTimeField(default=datetime.now, blank=True)
     date = models.DateField(auto_now_add=True)
     vendor = models.CharField(max_length=30)
     cost = models.FloatField()
@@ -91,15 +95,17 @@ class KMRead(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     value = models.FloatField()
     comment = models.CharField(max_length=400, blank=True, null=True)
-    
+
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.license_id
 
+
 class City(models.Model):
-    name = models.CharField(max_length=50)
-    
+    name = models.CharField(max_length=30)
+
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.name
+
 
 class Parking(models.Model):
     license_id = models.ForeignKey(Car)
@@ -110,6 +116,7 @@ class Parking(models.Model):
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.license_id + " " + self.city
 
+
 class Road6(models.Model):
     license_id = models.ForeignKey(Car)
     date = models.DateField(default=datetime.today())
@@ -118,9 +125,11 @@ class Road6(models.Model):
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.license_id + " " + str(self.date)
 
-class Accidents(models.Model):
+
+class Accident(models.Model):
     license_id = models.ForeignKey(Car)
     driver = models.CharField(max_length=50, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
     date = models.DateField(default=datetime.today())
     cost = models.FloatField()
     description = models.TextField(null=True, blank=True)
@@ -128,7 +137,7 @@ class Accidents(models.Model):
                               default='accidents/None/no-img.jpg')
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.license_id + " " + str(self.cost)
+        return self.license_id
 
 #TODO:
 # 1. accidents history.

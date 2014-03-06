@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{% if object.id %}
+Edit accident report {{ object.license_id }}
+{% else %}
+Add an accident report
+{% endif %}
+{% endblock %}
+{% block content %}
+{% if object.id %}
+<h3>Edit group {{ object.license_id }}</h3>
+{% else %}
+<h3>Add a record</h3>
+{% endif %}
+
+<form action="{{ target }}" method='POST'>
+
+{% csrf_token %}
+
+<ul>
+	{{ form.as_ul }}
+</ul>
+
+<input type="submit" value="Save" />
+
+</form>
+{% endblock %}
