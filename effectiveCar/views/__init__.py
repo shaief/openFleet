@@ -5,3 +5,4 @@ from view_monthly import *
 from view_classification import *
 from view_kmread import *
 from view_statistics import *
+from view_accidents import *

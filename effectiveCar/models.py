@@ -137,7 +137,7 @@ class Accident(models.Model):
                               default='accidents/None/no-img.jpg')
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.license_id
+        return self.driver
 
 #TODO:
 # 1. accidents history.

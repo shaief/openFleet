@@ -21,6 +21,7 @@ def home(request):
     next_week = datetime.datetime.now()+datetime.timedelta(days=7)
     next_month = datetime.datetime.now()+datetime.timedelta(days=31)
     next_year = datetime.datetime.now()+datetime.timedelta(days=365)
+    # next license renewals:
     license_next_week = Car.objects.all().\
         filter(license_renewal_date__lte=next_week).\
         order_by('license_renewal_date')
@@ -32,6 +33,7 @@ def home(request):
         filter(license_renewal_date__lte=next_year).\
         filter(license_renewal_date__gte=next_month).\
         order_by('license_renewal_date')
+    # next insurance renewals:
     insurance_next_week = Car.objects.all().\
         filter(insurance_renewal_date__lte=next_week).\
         order_by('license_renewal_date')
@@ -43,6 +45,11 @@ def home(request):
         filter(insurance_renewal_date__lte=next_year).\
         filter(insurance_renewal_date__gte=next_month).\
         order_by('license_renewal_date')
+    # next routine treatment:
+    treament_in_less_than_1e3 = Car.objects.all().\
+        filter(insurance_renewal_date__lte=next_year).\
+        order_by('license_renewal_date')    
+
     context = dict(
         today=today,
         license_next_week=license_next_week,

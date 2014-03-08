@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from effectiveCar import views
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 
 urlpatterns = patterns('',
     # Examples:
@@ -92,6 +93,9 @@ urlpatterns = patterns('',
     url(r'^accident/(?P<pk>\d+)/$',
         views.AccidentView.as_view(),
         name='view_accident'),
+    url(r'^accidents/(?P<pk>\d+)/$',
+        views.AccidentsView,
+        name='accidents'),
 
     # Statistics:
     url(r'^statistics/$',

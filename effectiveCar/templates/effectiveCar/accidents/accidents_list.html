@@ -11,7 +11,7 @@ Accidents list
 	{% for object in object_list %}
 	<li>
 		<a href="{% url 'view_accident' pk=object.id %}">
-			{{ object.license_id }} {{ object.reported_at }}
+			{{ object.license_id }} {{ object.date }}
 		</a>
 		[<a href="{% url 'edit_accident' pk=object.id %}">
 		edit

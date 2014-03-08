@@ -7,7 +7,7 @@
 
 
 {% block content %}
-<h1 align='center'>Accidents report for car: {{ accident.license_id }}</h1>
+<h1 align='center'>Accidents report for car: <a href="{% url 'view_car' pk=accident.license_id.id %}">{{ accident.license_id }}</a></h1>
 
 </br>
 <table class="table table-striped">
@@ -22,13 +22,13 @@
 	</tr>
 	<tbody>
 		<tr>
-			<td><a href="{% url 'view_car' pk=accident.license_id.id %}">{{ accident.license_id }}</a></td>
+			<td>{{ accident.license_id }}</a></td>
 			<td>{{ accident.driver }}</td>
 			<td>{{ accident.timestamp }}</td>
 			<td>{{ accident.date }}</td>
 			<td>{{ accident.cost }}</td>
 			<td>{{ accident.description }}</td>
-			<td><img src="{{ accident.image }}"/></td>
+			<td><img src="{{ accident.image.url }}"/></td>
 		</tr>
 	</tbody>
 </table>

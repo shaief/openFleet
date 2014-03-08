@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ accidents_list.license_id }}
+{% endblock %}
+
+
+{% block content %}
+<h1 align='center'>Accidents report for {{ nickname }}: <a href="{% url 'view_car' pk=pk %}">{{ license_id }}</a></h1>
+
+</br>
+<table class="table table-striped table-condensed">
+	<tr>
+		<th align="center">Driver</th>
+		<th align="center">Added to openFleet</th>
+		<th align="center">Date</th>
+		<th align="center">Cost</th>
+		<th align="center">Description</th>
+		<th align="center">Image</th>
+		<th align="center">Edit</th>
+	</tr>
+	<tbody>
+	{% for a in accidents_list %}
+		<tr>
+			<td><a href="{% url 'view_accident' pk=a.id %}">{{ a.driver }}</a></td>
+			<td>{{ a.timestamp }}</td>
+			<td>{{ a.date }}</td>
+			<td>{{ a.cost }}</td>
+			<td>{{ a.description }}</td>
+			<td><img src="{{ a.image.url }}"/></td>
+			<td align="center"><a href="{% url 'edit_accident' pk=a.id %}"><span class="glyphicon glyphicon-wrench"></a></td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td></td>
+			<td></td>
+			<td align="right"><strong>Total cost: </strong></td>
+			<td>{{ sum_cost }}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+{% endblock %}
