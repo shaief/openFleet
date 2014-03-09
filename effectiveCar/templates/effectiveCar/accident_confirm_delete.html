@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Delete accident report {{ object.date }}
+{% endblock %}
+{% block content %}
+<h3>Delete accident report {{ object.date }}, created at {{ object.timestamp }}</h3>
+
+
+<h4>
+	<span class="label label-warning">
+		Are you sure you want to delete accident report?
+	</span>
+</h4>
+<div class="row">
+	<div class="col-md-4">
+		<h4>
+			{{ object.license_id.nickname }} ({{ object.license_id.maker }} / {{ object.license_id.car_model }} <a href="{% url 'view_car' pk=object.license_id.id %}">{{ object.license_id }}</a>) with driver {{ object.driver }}
+		</h4>
+		<div>
+			<strong>Descritpion:</strong>
+			<p>{{ object.description }}</p>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<img height="250" src="{{ object.image.url }}"/>
+	</div>
+</div>
+<form action="{{ target }}" method='POST'>
+	{% csrf_token %}
+	<div class="row">
+		<h3>
+			<span class="label label-warning">
+				This action cannot be reversed!
+			</span>
+		</h3>
+		<ul>
+			{{ form.as_ul }}
+		</ul>
+		<input type="submit" class="btn btn-danger btn-lg" value="Confirm delete"/>
+		<a href="{% url 'view_accident' pk=object.id %}"><button type="button" class="btn btn-info btn-lg">Cancel</button></a>
+	</div>
+</form>
+{% endblock %}

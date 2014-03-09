@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import (
     ListView,
     CreateView,
@@ -53,6 +53,11 @@ class UpdateAccidentView(UpdateView):
         context['target'] = reverse('edit_accident',
                                     kwargs={'pk': self.get_object().id})
         return context
+
+
+class DeleteAccidentView(DeleteView):
+    model = Accident
+    success_url = reverse_lazy('accidents_list')
 
 
 class AccidentView(DetailView):

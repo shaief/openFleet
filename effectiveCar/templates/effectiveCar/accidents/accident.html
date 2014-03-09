@@ -7,35 +7,47 @@
 
 
 {% block content %}
-<h1 align='center'>Accidents report for car: <a href="{% url 'view_car' pk=accident.license_id.id %}">{{ accident.license_id }}</a></h1>
+<h1 align='center'>Accident report for car: <a href="{% url 'view_car' pk=accident.license_id.id %}">{{ accident.license_id }}</a></h1>
 
 </br>
-<table class="table table-striped">
-	<tr>
-		<th>License ID</th>
-		<th>Driver</th>
-		<th>Added to openFleet</th>
-		<th>Date</th>
-		<th>Cost</th>
-		<th>Description</th>
-		<th>Image</th>
-	</tr>
-	<tbody>
-		<tr>
-			<td>{{ accident.license_id }}</a></td>
-			<td>{{ accident.driver }}</td>
-			<td>{{ accident.timestamp }}</td>
-			<td>{{ accident.date }}</td>
-			<td>{{ accident.cost }}</td>
-			<td>{{ accident.description }}</td>
-			<td><img src="{{ accident.image.url }}"/></td>
-		</tr>
-	</tbody>
-</table>
+<div class="row">
+	<div class="col-md-6">
+		<table class="table table-striped">
+			<tbody>
+				<tr>
+					<th>License ID</th>
+					<td>{{ accident.license_id }}</a></td>
+				</tr>
+				<tr>
+					<th>Driver</th>
+					<td>{{ accident.driver }}</td>
+				</tr>
+				<tr>
+					<th>Added to openFleet</th>
+					<td>{{ accident.timestamp }}</td>
+				</tr>
+				<tr>
+					<th>Date</th>	
+					<td>{{ accident.date }}</td>
+				</tr>
+				<tr>
+					<th>Cost</th>
+					<td>{{ accident.cost }}</td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td>{{ accident.description }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-4">
+		<a href="{{ accident.image.url }}"><img height="250" src="{{ accident.image.url }}"/></a>
+	</div>
+</div>
+<a href="{% url 'delete_accident' pk=accident.id %}"><button type="button" class="btn btn-danger btn-md"><span class="glyphicon glyphicon-remove"></span> Delete</button>
 <a href="{% url 'edit_accident' pk=accident.id %}"><button type="button" class="btn btn-default btn-md">
-	<span class="glyphicon glyphicon-wrench"></span>
-	Edit
-</button></a>
+	<span class="glyphicon glyphicon-wrench"></span> Edit</button></a>
 <a href="{% url 'add_accident' %}"><button type="button" class="btn btn-default btn-md">
 	<span class="glyphicon glyphicon-plus"></span>
 	Add a new accident report

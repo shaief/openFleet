@@ -19,6 +19,7 @@
 		<th align="center">Description</th>
 		<th align="center">Image</th>
 		<th align="center">Edit</th>
+		<th align="center">Delete</th>
 	</tr>
 	<tbody>
 	{% for a in accidents_list %}
@@ -28,8 +29,9 @@
 			<td>{{ a.date }}</td>
 			<td>{{ a.cost }}</td>
 			<td>{{ a.description }}</td>
-			<td><img src="{{ a.image.url }}"/></td>
+			<td><a href="{{ a.image.url }}"><img height="50" src="{{ a.image.url }}"/></a></td>
 			<td align="center"><a href="{% url 'edit_accident' pk=a.id %}"><span class="glyphicon glyphicon-wrench"></a></td>
+			<td align="center"><a href="{% url 'delete_accident' pk=a.id %}"><span class="glyphicon glyphicon-remove"></a></td>
 		</tr>
 		{% endfor %}
 		<tr>

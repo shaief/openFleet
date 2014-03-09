@@ -133,7 +133,7 @@ class Accident(models.Model):
     date = models.DateField(default=datetime.today())
     cost = models.FloatField()
     description = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to='accidents/',
+    image = models.ImageField(upload_to='accidents/%Y/%m/%d',
                               default='accidents/None/no-img.jpg')
 
     def __unicode__(self):  # Python 3: def __str__(self):
