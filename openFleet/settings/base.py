@@ -12,14 +12,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 from unipath import FSPath as Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_DIR = Path(__file__).absolute().ancestor(3)
 
-PROJECT_DIR = Path(__file__).absolute().ancestor(2)
-
-PROJECT_ROOT = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), ".."),
-)
-
+print "PROJECT_DIR is", PROJECT_DIR
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -71,7 +66,7 @@ WSGI_APPLICATION = 'openFleet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': PROJECT_DIR.child('db.sqlite3'),
     }
 }
 
