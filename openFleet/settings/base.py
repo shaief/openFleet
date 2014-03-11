@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'south',
     'debug_toolbar',
+    'dj_database_url',
 
     'effectiveCar',
 )
