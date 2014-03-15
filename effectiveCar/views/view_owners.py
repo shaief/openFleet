@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import (
     ListView,
     CreateView,
@@ -20,7 +20,8 @@ class OwnerListView(ListView):
 class CreateOwnerView(CreateView):
 
     model = Owner
-    fields = ['name', 'email', 'license_renewal_date']
+    fields = ['first_name', 'last_name', 'email', 'license_category',
+              'license_renewal_date', 'department', 'manager_name', 'image']
     template_name = 'effectiveCar/owners/edit_owner.html'
 
     def get_success_url(self):
@@ -36,7 +37,8 @@ class CreateOwnerView(CreateView):
 class UpdateOwnerView(UpdateView):
 
     model = Owner
-    fields = ['name', 'email', 'license_renewal_date']
+    fields = ['first_name', 'last_name', 'email', 'license_category',
+              'license_renewal_date', 'department', 'manager_name', 'image']
     template_name = 'effectiveCar/owners/edit_owner.html'
 
     def get_success_url(self):
@@ -47,6 +49,11 @@ class UpdateOwnerView(UpdateView):
         context['target'] = reverse('edit_owner',
                                     kwargs={'pk': self.get_object().id})
         return context
+
+
+class DeleteOwnerView(DeleteView):
+    model = Owner
+    success_url = reverse_lazy('owners_list')
 
 
 class OwnerView(DetailView):

@@ -31,7 +31,7 @@ from effectiveCar.models import (
 
 def StatisticsGeneral(request):
     cars_list = Car.objects.all().order_by('license_id')
-    owners_list = Owner.objects.all().order_by('name')
+    owners_list = Owner.objects.all().order_by('last_name')
     classifications_list = Classification.objects.all().order_by('group')
     months_list = MonthlyRecord.objects.all().order_by('month').distinct()
 
@@ -48,7 +48,7 @@ def StatisticsGeneral(request):
 
 def StatisticsGeneral_json(request):
     cars_list = Car.objects.all().order_by('license_id')
-    owners_list = Owner.objects.all().order_by('name')
+    owners_list = Owner.objects.all().order_by('last_name')
     classifications_list = Classification.objects.all().order_by('group')
     months_list = MonthlyRecord.objects.all().order_by('month').distinct()
 

@@ -9,6 +9,7 @@ import time
 import itertools
 
 from django.db.models import Avg
+from django.db.models import Q
 
 # Create your views here.
 
@@ -46,10 +47,20 @@ def home(request):
         filter(insurance_renewal_date__gte=next_month).\
         order_by('license_renewal_date')
     # next routine treatment:
-    treament_in_less_than_1e3 = Car.objects.all().\
-        filter(insurance_renewal_date__lte=next_year).\
-        order_by('license_renewal_date')    
-
+    cars = Car.objects.all()
+    next_treatment_1e3 = []
+    next_treatment_more = []
+    next_treatment_nodata = []
+    for c in cars:
+        c_km = c.kmread_set.order_by('-timestamp')
+        try:
+            c_km[1]
+            if c_km[0]-c_km[1] > 9000:
+                next_treatment_1e3.append(c.license_id)
+            else:
+                next_treatment_more.append(c.license_id)
+        except:
+            next_treatment_nodata.append(c.license_id)
     context = dict(
         today=today,
         license_next_week=license_next_week,
@@ -58,5 +69,8 @@ def home(request):
         insurance_next_week=insurance_next_week,
         insurance_next_month=insurance_next_month,
         insurance_next_year=insurance_next_year,
+        next_treatment=next_treatment_1e3,
+        next_treatment_car=next_treatment_more,
+        next_treatment_nodata=next_treatment_nodata,
     )
     return render(request, 'effectiveCar/index.html', context)
