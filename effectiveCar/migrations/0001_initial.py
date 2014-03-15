@@ -8,13 +8,33 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Owner'
-        db.create_table(u'effectiveCar_owner', (
+        # Adding model 'Department'
+        db.create_table(u'effectiveCar_department', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
+        ))
+        db.send_create_signal(u'effectiveCar', ['Department'])
+
+        # Adding model 'Manager'
+        db.create_table(u'effectiveCar_manager', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, null=True)),
+        ))
+        db.send_create_signal(u'effectiveCar', ['Manager'])
+
+        # Adding model 'Owner'
+        db.create_table(u'effectiveCar_owner', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, null=True)),
             ('license_category', self.gf('django.db.models.fields.CharField')(max_length=2)),
             ('license_renewal_date', self.gf('django.db.models.fields.DateField')()),
+            ('department', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.Department'])),
+            ('manager_name', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.Manager'])),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(default='owners/None/no-img.jpg', max_length=100)),
         ))
         db.send_create_signal(u'effectiveCar', ['Owner'])
 
@@ -45,6 +65,16 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'effectiveCar', ['Car'])
 
+        # Adding model 'CarStatus'
+        db.create_table(u'effectiveCar_carstatus', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('license_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.Car'])),
+            ('status', self.gf('django.db.models.fields.CharField')(max_length=20)),
+            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 11, 0, 0))),
+        ))
+        db.send_create_signal(u'effectiveCar', ['CarStatus'])
+
         # Adding model 'MonthlyRecord'
         db.create_table(u'effectiveCar_monthlyrecord', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -62,7 +92,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('license_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.Car'])),
             ('owner', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.Owner'])),
-            ('start_date', self.gf('django.db.models.fields.DateField')()),
+            ('start_date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 11, 0, 0))),
             ('end_date', self.gf('django.db.models.fields.DateField')(null=True)),
         ))
         db.send_create_signal(u'effectiveCar', ['CarOwnership'])
@@ -93,7 +123,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('license_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.Car'])),
             ('reported_at', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('report_type', self.gf('django.db.models.fields.CharField')(max_length=8)),
+            ('report_type', self.gf('django.db.models.fields.CharField')(max_length=10)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('value', self.gf('django.db.models.fields.FloatField')()),
             ('comment', self.gf('django.db.models.fields.CharField')(max_length=400, null=True, blank=True)),
@@ -112,7 +142,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('license_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.Car'])),
             ('city', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.City'])),
-            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 7, 0, 0))),
+            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 11, 0, 0))),
             ('cost', self.gf('django.db.models.fields.FloatField')()),
         ))
         db.send_create_signal(u'effectiveCar', ['Parking'])
@@ -121,7 +151,7 @@ class Migration(SchemaMigration):
         db.create_table(u'effectiveCar_road6', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('license_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.Car'])),
-            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 7, 0, 0))),
+            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 11, 0, 0))),
             ('cost', self.gf('django.db.models.fields.FloatField')()),
         ))
         db.send_create_signal(u'effectiveCar', ['Road6'])
@@ -132,7 +162,7 @@ class Migration(SchemaMigration):
             ('license_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['effectiveCar.Car'])),
             ('driver', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 7, 0, 0))),
+            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 11, 0, 0))),
             ('cost', self.gf('django.db.models.fields.FloatField')()),
             ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('image', self.gf('django.db.models.fields.files.ImageField')(default='accidents/None/no-img.jpg', max_length=100)),
@@ -141,6 +171,12 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
+        # Deleting model 'Department'
+        db.delete_table(u'effectiveCar_department')
+
+        # Deleting model 'Manager'
+        db.delete_table(u'effectiveCar_manager')
+
         # Deleting model 'Owner'
         db.delete_table(u'effectiveCar_owner')
 
@@ -149,6 +185,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Car'
         db.delete_table(u'effectiveCar_car')
+
+        # Deleting model 'CarStatus'
+        db.delete_table(u'effectiveCar_carstatus')
 
         # Deleting model 'MonthlyRecord'
         db.delete_table(u'effectiveCar_monthlyrecord')
@@ -182,7 +221,7 @@ class Migration(SchemaMigration):
         u'effectiveCar.accident': {
             'Meta': {'object_name': 'Accident'},
             'cost': ('django.db.models.fields.FloatField', [], {}),
-            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 7, 0, 0)'}),
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 11, 0, 0)'}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'driver': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -213,7 +252,15 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'license_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['effectiveCar.Car']"}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['effectiveCar.Owner']"}),
-            'start_date': ('django.db.models.fields.DateField', [], {})
+            'start_date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 11, 0, 0)'})
+        },
+        u'effectiveCar.carstatus': {
+            'Meta': {'object_name': 'CarStatus'},
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 11, 0, 0)'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'license_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['effectiveCar.Car']"}),
+            'status': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         },
         u'effectiveCar.city': {
             'Meta': {'object_name': 'City'},
@@ -226,15 +273,27 @@ class Migration(SchemaMigration):
             'group': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
+        u'effectiveCar.department': {
+            'Meta': {'object_name': 'Department'},
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
+        },
         u'effectiveCar.kmread': {
             'Meta': {'object_name': 'KMRead'},
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '400', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'license_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['effectiveCar.Car']"}),
-            'report_type': ('django.db.models.fields.CharField', [], {'max_length': '8'}),
+            'report_type': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'reported_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'value': ('django.db.models.fields.FloatField', [], {})
+        },
+        u'effectiveCar.manager': {
+            'Meta': {'object_name': 'Manager'},
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'null': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
         },
         u'effectiveCar.monthlyrecord': {
             'Meta': {'object_name': 'MonthlyRecord'},
@@ -248,24 +307,28 @@ class Migration(SchemaMigration):
         },
         u'effectiveCar.owner': {
             'Meta': {'object_name': 'Owner'},
+            'department': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['effectiveCar.Department']"}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'null': 'True'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'default': "'owners/None/no-img.jpg'", 'max_length': '100'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'license_category': ('django.db.models.fields.CharField', [], {'max_length': '2'}),
             'license_renewal_date': ('django.db.models.fields.DateField', [], {}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
+            'manager_name': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['effectiveCar.Manager']"})
         },
         u'effectiveCar.parking': {
             'Meta': {'object_name': 'Parking'},
             'city': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['effectiveCar.City']"}),
             'cost': ('django.db.models.fields.FloatField', [], {}),
-            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 7, 0, 0)'}),
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 11, 0, 0)'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'license_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['effectiveCar.Car']"})
         },
         u'effectiveCar.road6': {
             'Meta': {'object_name': 'Road6'},
             'cost': ('django.db.models.fields.FloatField', [], {}),
-            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 7, 0, 0)'}),
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 11, 0, 0)'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'license_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['effectiveCar.Car']"})
         },
