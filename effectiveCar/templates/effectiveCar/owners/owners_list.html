@@ -11,7 +11,7 @@ Drivers list
 <ul>
 	
 	{% for item in object_list %}
-	<li><a href="{% url 'view_owner' pk=item.id %}">{{ item.name }} </a> <a href="{% url 'edit_owner' pk=item.id %}">[edit]</a></li>
+	<li><a href="{% url 'view_owner' pk=item.id %}">{{ item.first_name }} {{ item.last_name }}</a> <a href="{% url 'edit_owner' pk=item.id %}">[edit]</a></li>
 	{% endfor %}
 </ul>
 </br>

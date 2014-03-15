@@ -48,7 +48,7 @@ home
 						<h4>In less than a week:</h4>
 						{% for c in license_next_week %}
 						<a href="{% url 'edit_car' pk=c.id%}">
-							<button type="button" class="btn btn-danger btn-xs">{{ c.license_id }}<br>{{ c.license_renewal_date|date:"d/m/y" }}</button>
+							<button type="button" class="btn btn-danger btn-xs"><strong>{{ c.nickname }}</strong><br>{{ c.license_id }}<br>{{ c.license_renewal_date|date:"d/m/y" }}</button>
 						</a>
 						{% endfor %}
 					</td>
@@ -58,7 +58,7 @@ home
 						<h4>In less than a month:</h4>
 						{% for c in license_next_month %}
 						<a href="{% url 'edit_car' pk=c.id%}">
-							<button type="button" class="btn btn-warning btn-xs">{{ c.license_id }}<br>{{ c.license_renewal_date|date:"d/m/Y" }}</button>
+							<button type="button" class="btn btn-warning btn-xs"><strong>{{ c.nickname }}</strong><br>{{ c.license_id }}<br>{{ c.license_renewal_date|date:"d/m/Y" }}</button>
 						</a>
 						{% endfor %}
 					</td>
@@ -68,7 +68,7 @@ home
 						<h4>In less than a year:</h4>
 						{% for c in license_next_year %}
 						<a href="{% url 'edit_car' pk=c.id%}">
-							<button type="button" class="btn btn-success btn-xs">{{ c.license_id }}<br>{{ c.license_renewal_date|date:"d/m/Y" }}</button>
+							<button type="button" class="btn btn-success btn-xs"><strong>{{ c.nickname }}</strong><br>{{ c.license_id }}<br>{{ c.license_renewal_date|date:"d/m/Y" }}</button>
 						</a>
 						{% endfor %}
 					</td>
@@ -128,16 +128,23 @@ home
 				<tr>
 					<td>
 						<h4>In less than 1,000 km:</h4>
-						{% for c in car_next_week %}
-						<h5 class="label label-danger">{{ c.license_id }} {{ c.insurance_renewal_date|date:"d/m/Y" }}</h5><br>
+						{% for nt in next_treatment_1e3 %}
+								<button type="button" class="btn btn-danger btn-xs">{{ nt }}</button>
 						{% endfor %}
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<h4>In less than 5,000 km:</h4>
-						{% for c in insurance_next_month %}
-						<h5 class="label label-warning">{{ c.license_id }} {{ c.insurance_renewal_date|date:"d/m/Y" }}</h5><br>
+						<h4>Not so soon:</h4>
+						{% for nt in next_treatment_more %}
+								<button type="button" class="btn btn-warning btn-xs">{{ nt }}</button>
+						{% endfor %}					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>Not enough data:</h4>
+						{% for nt in next_treatment_nodata %}
+								<button type="button" class="btn btn-default btn-xs">{{ nt }}</button>
 						{% endfor %}
 					</td>
 				</tr>

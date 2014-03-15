@@ -17,7 +17,7 @@
 						<strong>Driver: </strong>
 					</td>
 					<td>
-						<a href="{% url 'view_owner' pk=car.current_owner.id %}">{{ car.current_owner.name }}</a>
+						<a href="{% url 'view_owner' pk=car.current_owner.id %}">{{ car.current_owner.first_name }} {{ car.current_owner.last_name }}</a>
 					</td>
 				</tr>
 				<tr>

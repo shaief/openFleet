@@ -3,14 +3,14 @@
 
 {% block title %}
 {% if object.id %}
-Edit details for {{ object.name }}
+Edit details for {{ object.first_name }} {{ object.last_name }}
 {% else %}
 Add driver
 {% endif %}
 {% endblock %}
 {% block content %}
 {% if object.id %}
-<h3>Edit details for driver {{ object.name }}</h3>
+<h3>Edit details for driver {{ object.first_name }} {{ object.last_name }}</h3>
 {% else %}
 <h3>Add a driver</h3>
 {% endif %}

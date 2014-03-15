@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block title %}
-{{ owner.name }}
+{{ owner.first_name }} {{ owner.last_name }}
 {% endblock %}
 
 
 {% block content %}
 <h1 align='center'>{{ car.license_id }}</h1>
 <ul>
-	<li>Driver: {{ owner.name }}</li>
+	<li>Driver: {{ owner.first_name }} {{ owner.last_name }}</li>
 	<li>Email address: {{ owner.email }}</li>
 	<li>Car: {{ owner.car_set.all }}</li>
 {% endblock %}

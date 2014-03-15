@@ -13,6 +13,18 @@ Groups list
 		<a href="{% url 'view_group' pk=group.id %}">
 			{{ group.group }}
 		</a>
+		<table><tbody>
+			{% for i in iii %}
+			{% if group_car %}
+			<tr>
+			<td>
+				{{ c.license_id }}
+			</td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</tbody></table>
+		
 		[<a href="{% url 'edit_group' pk=group.id %}">
 		edit
 		</a>]
