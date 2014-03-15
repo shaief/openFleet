@@ -2,20 +2,41 @@ from django.db import models
 from datetime import datetime
 
 
-class Owner(models.Model):
-    # CHOICES = ['A2', 'A1', 'A', 'B', 'C1', 'C',
-    #            'D', 'D1', 'D2', 'D3', 'E', '1']
-    name = models.CharField(max_length=30)
-    email = models.EmailField(null=True)
-    license_category = models.CharField(max_length=2)
-    license_renewal_date = models.DateField()
+class Department(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+    description = models.TextField(null=True, blank=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.name
 
 
+class Manager(models.Model):
+    name = models.CharField(max_length=30)
+    email = models.EmailField(null=True)
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.name
+
+
+class Owner(models.Model):
+    # CHOICES = ['A2', 'A1', 'A', 'B', 'C1', 'C',
+    #            'D', 'D1', 'D2', 'D3', 'E', '1']
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField(null=True)
+    license_category = models.CharField(max_length=2)
+    license_renewal_date = models.DateField()
+    department = models.ForeignKey(Department)
+    manager_name = models.ForeignKey(Manager)
+    image = models.ImageField(upload_to='owners/',
+                              default='owners/None/no-img.jpg')
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.first_name + " " + self.last_name
+
+
 class Classification(models.Model):
-    group = models.CharField(max_length=30)
+    group = models.CharField(max_length=30, unique=True)
     description = models.TextField(null=True, blank=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
@@ -43,6 +64,19 @@ class Car(models.Model):
         return self.license_id
 
 
+class CarStatus(models.Model):
+    CHOICES = (('active', 'Active'),
+               ('not active', 'Not active'),
+               ('sold', 'Sold'))
+    license_id = models.ForeignKey(Car)
+    status = models.CharField(max_length=20, choices=CHOICES)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(default=datetime.today())
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.status
+
+
 class MonthlyRecord(models.Model):
     license_id = models.ForeignKey(Car)
     year = models.IntegerField()
@@ -58,7 +92,7 @@ class MonthlyRecord(models.Model):
 class CarOwnership(models.Model):
     license_id = models.ForeignKey(Car)
     owner = models.ForeignKey(Owner)
-    start_date = models.DateField()
+    start_date = models.DateField(default=datetime.today())
     end_date = models.DateField(null=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
@@ -77,8 +111,9 @@ class TreatmentType(models.Model):
 class Treatment(models.Model):
     license_id = models.ForeignKey(Car)
     treatmenttype = models.ForeignKey(TreatmentType)
-    reported_at = models.DateTimeField(default=datetime.now, blank=True)
+    timestamp = models.DateTimeField(default=datetime.now, blank=True)
     date = models.DateField(auto_now_add=True)
+    km_read = models.IntegerField()
     vendor = models.CharField(max_length=30)
     cost = models.FloatField()
     remarks = models.TextField(null=True, blank=True)
@@ -88,12 +123,13 @@ class Treatment(models.Model):
 
 
 class KMRead(models.Model):
+    CHOICES = (('percise', 'Percise'), ('estimate', 'Estimate'))
     license_id = models.ForeignKey(Car)
     reported_at = models.DateTimeField(default=datetime.now, blank=True)
-    report_type = models.CharField(max_length=8)  # precise / estimate
+    report_type = models.CharField(max_length=10, choices=CHOICES)
     # precise is a real time, smartphnoe based read, estimate is less accurate.
     timestamp = models.DateTimeField(auto_now_add=True)
-    value = models.FloatField()
+    value = models.IntegerField()
     comment = models.CharField(max_length=400, blank=True, null=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
