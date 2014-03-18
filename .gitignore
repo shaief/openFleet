@@ -35,4 +35,9 @@ nosetests.xml
 .project
 .pydevproject
 
+# DB
 db.sqlite3
+
+# data for trying the system:
+*.ods
+*.csv 
