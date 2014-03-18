@@ -22,6 +22,9 @@ urlpatterns = patterns('',
         name='edit_car'),
     url(r'^car/(?P<pk>\d+)/$',
         views.CarView.as_view(),
+        name='car'),
+    url(r'^view_car/(?P<pk>\d+)/$',
+        views.view_car,
         name='view_car'),
 
     # Owners:
