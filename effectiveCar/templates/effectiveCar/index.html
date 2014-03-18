@@ -47,7 +47,7 @@ home
 					<td>
 						<h4>In less than a week:</h4>
 						{% for c in license_next_week %}
-						<a href="{% url 'edit_car' pk=c.id%}">
+						<a href="{% url 'view_car' pk=c.id%}">
 							<button type="button" class="btn btn-danger btn-xs"><strong>{{ c.nickname }}</strong><br>{{ c.license_id }}<br>{{ c.license_renewal_date|date:"d/m/y" }}</button>
 						</a>
 						{% endfor %}
@@ -57,7 +57,7 @@ home
 					<td>
 						<h4>In less than a month:</h4>
 						{% for c in license_next_month %}
-						<a href="{% url 'edit_car' pk=c.id%}">
+						<a href="{% url 'view_car' pk=c.id%}">
 							<button type="button" class="btn btn-warning btn-xs"><strong>{{ c.nickname }}</strong><br>{{ c.license_id }}<br>{{ c.license_renewal_date|date:"d/m/Y" }}</button>
 						</a>
 						{% endfor %}
@@ -67,7 +67,7 @@ home
 					<td>
 						<h4>In less than a year:</h4>
 						{% for c in license_next_year %}
-						<a href="{% url 'edit_car' pk=c.id%}">
+						<a href="{% url 'view_car' pk=c.id%}">
 							<button type="button" class="btn btn-success btn-xs"><strong>{{ c.nickname }}</strong><br>{{ c.license_id }}<br>{{ c.license_renewal_date|date:"d/m/Y" }}</button>
 						</a>
 						{% endfor %}
@@ -88,8 +88,8 @@ home
 					<td>
 						<h4>In less than a week:</h4>
 						{% for c in insurance_next_week %}
-						<a href="{% url 'edit_car' pk=c.id%}">
-						<button type="button" class="btn btn-danger btn-xs">{{ c.license_id }}<br>{{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
+						<a href="{% url 'view_car' pk=c.id%}">
+						<button type="button" class="btn btn-danger btn-xs"><strong>{{ c.nickname }}</strong><br>{{ c.license_id }}<br>{{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
 						</a>
 						{% endfor %}
 					</td>
@@ -98,8 +98,8 @@ home
 					<td>
 						<h4>In less than a month:</h4>
 						{% for c in insurance_next_month %}
-						<a href="{% url 'edit_car' pk=c.id%}">
-							<button type="button" class="btn btn-warning btn-xs">{{ c.license_id }}<br>{{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
+						<a href="{% url 'view_car' pk=c.id%}">
+							<button type="button" class="btn btn-warning btn-xs"><strong>{{ c.nickname }}</strong><br>{{ c.license_id }}<br>{{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
 						</a>
 						{% endfor %}
 					</td>
@@ -108,8 +108,8 @@ home
 					<td>
 						<h4>In less than a year:</h4>
 						{% for c in insurance_next_year %}
-						<a href="{% url 'edit_car' pk=c.id%}">
-							<button type="button" class="btn btn-success btn-xs">{{ c.license_id }}<br>{{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
+						<a href="{% url 'view_car' pk=c.id%}">
+							<button type="button" class="btn btn-success btn-xs"><strong>{{ c.nickname }}</strong><br>{{ c.license_id }}<br>{{ c.insurance_renewal_date|date:"d/m/Y" }}</button>
 						</a>
 						{% endfor %}
 					</td>
