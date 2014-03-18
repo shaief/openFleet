@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.shortcuts import render
 from django.views.generic import (
     ListView,
     CreateView,
@@ -6,8 +7,13 @@ from django.views.generic import (
     DeleteView,
     DetailView,
 )
+from django.db.models import Avg, Sum
 
-from effectiveCar.models import Car
+from effectiveCar.models import Car, KMRead, Accident
+import datetime
+import json
+import time
+import itertools
 
 
 class CarListView(ListView):
@@ -84,3 +90,51 @@ class CarView(DetailView):
 
     model = Car
     template_name = 'effectiveCar/cars/car.html'
+
+
+def view_car(request, pk):
+    today = datetime.datetime.today()
+    next_week = datetime.date.today()+datetime.timedelta(days=7)
+    next_month = datetime.date.today()+datetime.timedelta(days=31)
+    # next license renewals:
+    car = Car.objects.get(id=pk)
+    if car.license_renewal_date < next_week:
+        license_renewal = 1
+    elif car.license_renewal_date < next_month:
+        license_renewal = 2
+    else:
+        license_renewal = 3
+    # next insurance renewals:
+    if car.insurance_renewal_date < next_week:
+        insurance_renewal = 1
+    elif car.insurance_renewal_date < next_month:
+        insurance_renewal = 2
+    else:
+        insurance_renewal = 3
+    try:
+        km = KMRead.objects.filter(license_id=car.license_id).\
+            order_by('-timestamp')[:0]
+    except:
+        km = "No km Data!"
+    accidents_cost = Accident.objects.\
+        filter(license_id_id=pk).\
+        aggregate(value_sum=Sum('cost'))
+    try:
+        next_car = Car.objects.get(pk=pk+1)
+    except:
+        next_car = None
+    try:
+        previous_car = Car.objects.get(pk=pk-1)
+    except:
+        previous_car = None
+    context = dict(
+        car=car,
+        today=today,
+        license_renewal=license_renewal,
+        insurance_renewal=insurance_renewal,
+        km=km,
+        accidents_cost=accidents_cost['value_sum'],
+        next_car=next_car,
+        previous_car=previous_car,
+    )
+    return render(request, 'effectiveCar/cars/view_car.html', context)
