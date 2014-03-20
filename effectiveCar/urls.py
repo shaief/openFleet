@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 from effectiveCar import views
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.conf import settings
+# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# from django.conf import settings
 
 urlpatterns = patterns('',
     # Examples:
@@ -116,4 +116,8 @@ urlpatterns = patterns('',
     url(r'^statistics/$',
         views.StatisticsGeneral,
         name='statistics'),
+
+
+    url(r'^search_car/$', views.search_car),
+    url(r'^license_ids/$', views.license_ids, name='license_ids'),
 )
