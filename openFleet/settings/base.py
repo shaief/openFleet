@@ -41,7 +41,7 @@ INSTALLED_APPS = (
 
     'django_extensions',
     'south',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'dj_database_url',
 
     'effectiveCar',
@@ -100,6 +100,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#   'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
     # 'djangobower.finders.BowerFinder',
 )
