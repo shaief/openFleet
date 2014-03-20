@@ -74,3 +74,27 @@ def home(request):
         next_treatment_nodata=next_treatment_nodata,
     )
     return render(request, 'effectiveCar/index.html', context)
+
+
+def search_car(request):
+    query = request.GET.get('q', '')
+    if(len(query) > 0):
+        print "searching for {}".format(query)
+        results = Car.objects.filter(license_id__contains=query)
+        result_list = []
+        for item in results:
+            result_list.append(item.license_id)
+    else:
+        result_list = []
+
+    response_text = json.dumps(result_list, separators=(',', ':'))
+    return HttpResponse(response_text, content_type="application/json")
+
+
+def license_ids(request):
+    results = Car.objects.all().order_by('license_id')
+    result_list = []
+    for item in results:
+        result_list.append(item.license_id)
+    response_text = json.dumps(result_list, separators=(',', ':'))
+    return HttpResponse(response_text, content_type="application/json")

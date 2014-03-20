@@ -7,13 +7,22 @@ from django.views.generic import (
     DeleteView,
     DetailView,
 )
-from django.db.models import Avg, Sum
+from django.db.models import (
+    # Avg,
+    Sum,
+)
 
-from effectiveCar.models import Car, KMRead, Accident
+from effectiveCar.models import (
+    Car,
+    KMRead,
+    Accident,
+    MonthlyRecord,
+    Treatment,
+)
 import datetime
-import json
-import time
-import itertools
+# import json
+# import time
+# import itertools
 
 
 class CarListView(ListView):
@@ -112,13 +121,28 @@ def view_car(request, pk):
     else:
         insurance_renewal = 3
     try:
-        km = KMRead.objects.filter(license_id=car.license_id).\
-            order_by('-timestamp')[:0]
+        km = KMRead.objects.filter(license_id=car.id).\
+            latest('timestamp').value
     except:
         km = "No km Data!"
     accidents_cost = Accident.objects.\
         filter(license_id_id=pk).\
         aggregate(value_sum=Sum('cost'))
+    try:
+        monthly_record = MonthlyRecord.objects.filter(license_id=car.id).\
+            latest('id')
+    except:
+        monthly_record = "No Data!"
+    try:
+        treatment = Treatment.objects.filter(license_id=car.id).\
+            latest('id')
+        if (km - treatment.km_read < 1000):
+            km1000 = True
+        else:
+            km1000 = False
+    except:
+        treatment = "No Data!"
+        km1000 = False
     try:
         next_car = Car.objects.get(pk=pk+1)
     except:
@@ -133,6 +157,9 @@ def view_car(request, pk):
         license_renewal=license_renewal,
         insurance_renewal=insurance_renewal,
         km=km,
+        km1000=km1000,
+        monthly_record=monthly_record,
+        treatment=treatment,
         accidents_cost=accidents_cost['value_sum'],
         next_car=next_car,
         previous_car=previous_car,
