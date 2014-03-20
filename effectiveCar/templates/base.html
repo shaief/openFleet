@@ -51,12 +51,10 @@
        <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
          <span class="sr-only">Toggle navigation</span>
-         <span class="icon-bar"><img src="{% static 'images/cleanetica.gif' %}"/></span>
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
        </button>
        <a class="navbar-brand" href="{% url 'home' %}">openFleet</a>
-
      </div>
      <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
@@ -89,9 +87,13 @@
  </li>
  {% block navbar-list %}
  {% endblock %}
- <li>
-  <div class="form-group">
-    <input type="text" id="search" class="typeahead form-control input-sm" data-provied="typehead" style="width:300px;" placeholder="Search for cars">
+ <span class="icon-bar"><img src="{% static 'images/cleanetica.gif' %}"/></span>
+ </ul>
+ <ul class="nav pull-right"> 
+ <div class="form-group">
+    <!--<input type="text" id="search" class="typeahead form-control input-sm" data-provied="typehead" style="width:200px;" placeholder="Search for cars">-->
+  <input type="text" class="typeahead form-control input-sm" data-source="{% url 'license_ids' %}" placeholder="Search for cars">
+    </form>
   </div>
 </li>
 </ul>
@@ -112,10 +114,6 @@
 </div>
 
 <div id="footer">
- <!-- Fixed navbar -->
- <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-  <div class="container" align="center">
-   <div class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
      <li>
       <div class="btn-group dropup">
@@ -142,45 +140,39 @@
   </div>
 </li>
 </ul>
-
-<div class="container">
+</div><!--/.nav-collapse -->
+<br><br>
  <div class="text-muted" align="center">openFleet - manages your fleet since 02/2014.</br>
    <a href="http://shaief.com">Shai Efrati</a> //
    <a href="https://github.com/shaief/openFleet">project page on GitHub</a>
  </div></div>
  <div align="center">
   <img src="{% static 'images/SElogo25x25.png' %}"/>
-</div>  
-</div><!--/.nav-collapse -->
 </div>
-</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="https://code.jquery.com/jquery.js"></script>-->
+<script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!--<script type="text/javascript" src="{% static 'lib/d3.js' %}"></script>-->
+<script src="{% static "typeahead.js/typeahead.js" %}"></script>
+<!--<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
 
-
-
-
-
-</div>
 <script>
   {% verbatim %}
   $(function() {
     $('#search').typeahead({
       name: 'twitter-oss',
-      prefetch: {url: '../../search.json',
-      ttl: 0.1},
-      template: [
-      '<div class="search-option">',
-      ' <span style="text-align: right;">',
-      '{{#gravatar_url}}',
-      '   <img class="search-image" src="{{gravatar_url}}"/>',
-      '{{/gravatar_url}}',
-      '   <span class="search-type">{{type}}</span>',
-      '   <span class="search-name">{{name}}</span>',
-      ' </span>',
-      ' <div class="search-description">{{description}}</div>',
-      '</div>'
-      ].join(''),
+      remote: '{% url "license_ids" %}',
       engine: Hogan
+    })
+    .keydown(function(e) {
+        if (e.keyCode === 13) {
+            $("form").trigger('submit');
+        }
     });
+});
     
     $('#search').on('typeahead:selected', function (object, datum) {
         // Example: {value: "@JakeHarding", tokens: ['Jake', 'Harding'], name: "Jake Harding", profileImageUrl: "https://twitter.com/JakeHaridng/profile_img"}
@@ -216,21 +208,11 @@
   $("#close-alert").click(function() {
     $(".alert").hide();
   });
-  
   {% endverbatim %}
 </script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!--<script src="https://code.jquery.com/jquery.js"></script>-->
-<script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<!--<script type="text/javascript" src="{% static 'lib/d3.js' %}"></script>-->
-<script src="{% static "typeahead.js/typeahead.js" %}"></script>
-<!--<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
-
   {% block scripts %}
   {% endblock %}
+
 </body>
 </html>
 
