@@ -4,7 +4,7 @@ from .base import *
 
 ENV = 'heroku'
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
@@ -20,7 +20,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 ALLOWED_HOSTS = ['openfleet.herokuapp.com']
 
 # copied from openAir dokku.py:
-STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
 AWS_ACCESS_KEY_ID = environ.get('S3_KEY')
 AWS_SECRET_ACCESS_KEY = environ.get('S3_SECRET')
 AWS_STORAGE_BUCKET_NAME = environ.get('AWS_STORAGE_BUCKET_NAME')
