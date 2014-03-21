@@ -64,7 +64,7 @@
 							<strong>Group: </strong>
 						</td>
 						<td>
-							{{ car.classification }}
+							<a href="{% url 'view_group' pk=car.classification.id %}">{{ car.classification }}
 						</td>
 					</tr>
 					<tr>
