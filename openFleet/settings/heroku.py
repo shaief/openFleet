@@ -11,18 +11,9 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 # Parse database configuration from $DATABASE_URL
 DATABASES['default'] = dj_database_url.config()
 
-from urlparse import urlparse
-
-if environ.has_key('DATABASE_URL'):
-    url = urlparse(environ['DATABASE_URL'])
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': url.path[1:],
-        'USER': url.username,
-        'PASSWORD': url.password,
-        'HOST': url.hostname,
-        'PORT': url.port,
-    }
+INSTALLED_APPS += (
+    'django.contrib.admin',
+)
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
