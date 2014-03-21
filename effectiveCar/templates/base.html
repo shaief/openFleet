@@ -54,7 +54,8 @@
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
        </button>
-       <a class="navbar-brand" href="{% url 'home' %}">openFleet</a>
+       <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/cleaneticar_logo.png' %}"/></a>
+       <!--<a class="navbar-brand" href="{% url 'home' %}">openFleet</a>-->
      </div>
      <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
@@ -87,7 +88,6 @@
  </li>
  {% block navbar-list %}
  {% endblock %}
- <span class="icon-bar"><img src="{% static 'images/cleanetica.gif' %}"/></span>
  </ul>
  <ul class="nav pull-right"> 
  <div class="form-group">
