@@ -1,13 +1,19 @@
 License_id;nickname;classification;car_model;maker;color;production_year;date_of_purchase;km_read_at_purchase;license_renewal_date;insurance_renewal_date;current_owner;status;owner_license_renewal_date;department;manager
- 28-462-65 ;Yigal's car;Management;;Buick;transparent;2008;2000-01-01;1;2014-02-28;2014-02-28;Yigal Bermak;Active;2000-01-01;Management;Yigal Bermak
- 77-581-72 ;Tzuk's car;Management;;Nissan;transparent;2010;2000-01-01;1;2014-06-16;2014-05-31;Tzuk Bermak;Active;2000-01-01;Management;Yigal Bermak
- 17-632-66 ;Flora A's car;Management;;Mazda;transparent;2008;2000-01-01;1;2014-01-27;2013-11-30;Flora Alon;Active;2000-01-01;Management;Yigal Bermak
- 73-985-14 ;Sali's car;Management;;Subaru;transparent;2006;2000-01-01;1;2014-02-16;2013-12-31;Sali Dayan;Active;2000-01-01;Management;Yigal Bermak
-17-620-66;Alon's car;Management;3;Mazda;transparent;2008;2000-01-01;1;2014-01-27;2014-03-31;Alon Glinman;Active;2000-01-01;Management;Yigal Bermak
-17-621-66;Haim's car;Management;3;Mazda;transparent;2008;2000-01-01;1;2014-01-27;2014-02-28;Haim Avriel;Active;2000-01-01;Management;Yigal Bermak
- 17-623-66 ;Flora S' car;Management;3;Mazda;transparent;2008;2000-01-01;1;2014-01-27;2014-08-31;Flora Shuminov;Active;2000-01-01;Management;Yigal Bermak
- 17-624-66 ;Elad's car;Management;3;Mazda;transparent;2008;2000-01-01;1;2014-01-27;2014-08-31;Elad Danino;Active;2000-01-01;Management;Yigal Bermak
-17-625-66;Yossi's car;Management;3;Mazda;transparent;2008;2000-01-01;1;2013-01-27;2013-01-31;Yossi Sasson;Active;2000-01-01;Management;Yigal Bermak
-17-628-66;Kochi' car;Management;3;Mazda;transparent;2008;2000-01-01;1;2014-01-27;2014-06-30;Kochi Dadush;Active;2000-01-01;Management;Yigal Bermak
-17-636-66;Leonid's car;Management;3;Mazda;transparent;2008;2000-01-01;1;2014-01-27;2013-12-31;Leonid Hayat;Active;2000-01-01;Management;Yigal Bermak
-49-814-69;Boris' car;Pickups;Kangu;Renault;transparent;2009;2000-01-01;1;2014-07-06;2014-02-28;Boris Burstein;Active;2000-01-01;Storage;Yigal Bermak
+82-264-55;Yigal's car;Management;Malibu;Chevrolet;Silver;2007;2000-01-01;1;2014-02-28;2014-02-28;Yigal Alon;Active;2000-01-01;Management;Az Realy
+77-185-72;Tzur's car;Management;Terano;Nissan;Blue;2010;2000-01-01;1;2014-06-16;2014-05-31;Tzur Shalem;Active;2000-01-01;Management;Az Realy
+18-632-77;Vered's car;Management;3;Mazda;Yellow;2008;2000-01-01;1;2014-01-27;2013-11-30;Vered Silver;Active;2000-01-01;Management;Az Realy
+74-995-15;Sara's car;Management;Impreza;Subaru;Black;2006;2000-01-01;1;2014-02-16;2013-12-31;Sara David;Active;2000-01-01;Management;Az Realy
+18-620-77;Alon's car;Management;3;Mazda;White;2009;2000-01-01;1;2014-01-27;2014-03-31;Alon Goshen;Active;2000-01-01;Management;Az Realy
+18-621-77;Haim's car;Management;3;Mazda;White;2009;2000-01-01;1;2014-01-27;2014-02-28;Haim Av;Active;2000-01-01;Management;Az Realy
+18-623-77;Ayah's car;Management;3;Mazda;White;2009;2000-01-01;1;2014-01-27;2014-08-31;Ayah Shimon;Active;2000-01-01;Management;Az Realy
+18-624-77;Elad's car;Management;3;Mazda;White;2009;2000-01-01;1;2014-01-27;2014-08-31;Elad Denziger;Active;2000-01-01;Management;Az Realy
+18-625-77;Yossi's car;Management;3;Mazda;White;2009;2000-01-01;1;2013-01-27;2013-01-31;Yossi Cohen;Active;2000-01-01;Management;Az Realy
+18-628-77;Kochi' car;Management;3;Mazda;White;2009;2000-01-01;1;2014-01-27;2014-06-30;Kochi Levy;Active;2000-01-01;Management;Az Realy
+18-636-77;Leonid's car;Management;3;Mazda;White;2009;2000-01-01;1;2014-01-27;2013-12-31;Leonid Katz;Active;2000-01-01;Management;Az Realy
+49-814-62;Boris' car;Pickups;Kangu;Renault;Grey;2009;2000-01-01;1;2014-07-06;2014-02-28;Boris Blumenstein;Active;2000-01-01;Storage;Az Realy
+49-814-68;Alex's car;Pickups;Kangu;Renault;Grey;2010;2000-01-01;2;2014-07-05;2014-02-27;Alex Kopfrob;Active;2000-01-01;Storage;Az Realy
+49-814-67;Yossef's car;Pickups;Kangu;Renault;Grey;2010;2000-01-01;3;2014-07-04;2014-02-26;Yossef Haim;Active;2000-01-01;Storage;Az Realy
+49-814-66;Moshe's car;Trucks;Savana;GMC;White;2010;2000-01-01;4;2014-07-03;2014-02-25;Moshe Cohen;Active;2000-01-01;Storage;Az Realy
+49-814-65;Eran's car;Trucks;Savana;GMC;White;2010;2000-01-01;5;2014-07-02;2014-02-24;Eran Levy;Active;2000-01-01;Storage;Az Realy
+49-814-64;Ben's car;Trucks;Savana;GMC;White;2010;2000-01-01;6;2014-07-01;2014-02-23;Ben Benisti;Active;2000-01-01;Storage;Az Realy
+49-814-63;Dan's car;Trucks;Savana;GMC;White;2010;2000-01-01;7;2014-07-04;2014-02-22;Dan Almog;Active;2000-01-01;Storage;Az Realy
