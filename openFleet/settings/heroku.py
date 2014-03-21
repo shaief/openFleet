@@ -12,7 +12,7 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 DATABASES['default'] = dj_database_url.config()
 
 INSTALLED_APPS += (
-    'django-storages',
+    'storages',
 )
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
