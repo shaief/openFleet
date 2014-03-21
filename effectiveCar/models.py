@@ -133,7 +133,7 @@ class KMRead(models.Model):
     comment = models.CharField(max_length=400, blank=True, null=True)
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return self.license_id
+        return str(self.comment)
 
 
 class City(models.Model):
