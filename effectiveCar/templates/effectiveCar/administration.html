@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+home
+{% endblock %}
+
+
+{% block content %}
+<h1 align='center'><i class="glyphicon glyphicon-cog"></i>Administration</h1>
+<div class="row">
+	<div class="col-md-2">
+		<table class="table table-condensed">
+			<thead>
+				<th class="active">
+					<h3 align="center">What would you like to do?</h3>
+				</th>
+			</thead>
+			<tbody>
+				<tr><td>
+					<a href="{% url 'add_group' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="fa fa-ambulance"></i> Add a classification</button></a>
+				</td></tr>
+				<tr><td>
+					<a href="{% url 'add_owner' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="glyphicon glyphicon-user"></i> Add a car owner</button></a>
+				</td></tr>
+				<tr><td>
+					<a href="{% url 'add_car' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="fa fa-truck"></i> Add a car</button></a>
+				</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-2">
+		<table class="table table-condensed">
+			<thead>
+				<th class="active">
+					<h3 align="center">What would you like to see?</h3>
+				</th>
+			</thead>
+			<tbody>
+				<tr><td>
+					<a href="{% url 'add_group' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="fa fa-ambulance"></i> Add a classification</button></a>
+				</td></tr>
+				<tr><td>
+					<a href="{% url 'add_owner' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="glyphicon glyphicon-user"></i> Add an owner</button></a>
+				</td></tr>
+				<tr class="info"><td>
+					<a href="{% url 'add_car' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="fa fa-truck"></i> Add a car</button></a>
+				</td></tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

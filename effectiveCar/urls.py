@@ -1,10 +1,14 @@
 from django.conf.urls import patterns, url
 from effectiveCar import views
+from django.views.generic import TemplateView
+
 # from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 # from django.conf import settings
 
 urlpatterns = patterns('',
-    # Examples:
+    url(r'^administration/$', TemplateView.as_view(
+        template_name="effectiveCar/administration.html"),
+        name='administration'),
     url(r'^$', 'effectiveCar.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
