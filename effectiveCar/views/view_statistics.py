@@ -1,9 +1,8 @@
 import datetime
 import json
+import calendar
 import random
-import time
-import itertools
-
+from django.db.models import Q
 from django.http import HttpResponse
 
 from django.shortcuts import render, get_object_or_404
@@ -90,6 +89,110 @@ def StatisticsGeneral_json(request):
 #         total_average_value=total_average_value['value__avg']
 #     )
 #     return render(request, 'records/stationmapparam.html', context)
+
+
+def StatisticsClassification(request, pk):
+    name = Classification.objects.get(id=pk).group
+    cars_list = Car.objects.all().filter(classification=pk).\
+        order_by('id')
+    today = datetime.date.today()
+    first = datetime.date(day=1, month=today.month, year=today.year)
+    previous_month = (first - datetime.timedelta(days=1))
+    last_month = previous_month.month
+    this_year = previous_month.year
+    context = dict(
+        pk=pk,
+        name=name,
+        this_year=this_year,
+        last_month=last_month,
+        cars_list=cars_list,
+    )
+    return render(request, 'effectiveCar/statistics/classification.html',
+                  context)
+
+
+def StatisticsClassificationMonth_json(request, pk, year, month):
+    context = []
+    cars_list = Car.objects.all().filter(classification=pk).\
+        order_by('id')
+    year = int(year)
+    month = int(month)
+    cars = []
+    url = []
+    nis_per_km = []
+    km_per_month = []
+    cost_per_month = []
+    liter_per_month = []
+    # calendar.monthrange(year, month)[1] gives us the last day of the month
+    ''' since kmread is reported randomly, this way we'll have as much
+    information as possible. '''
+    start_date = datetime.date(year, month-1,
+                               calendar.monthrange(year, month-1)[1])
+    end_date = datetime.date(year, month,
+                             calendar.monthrange(year, month)[1])
+    for c in cars_list:
+        cars.append(c.license_id)
+        try:
+            cost = MonthlyRecord.objects.all().\
+                filter(license_id=c.id).\
+                filter(month=month).cost
+        except:
+            cost = 1000 * random.random()
+        try:
+            liter = MonthlyRecord.objects.all().\
+                filter(license_id=c.id).\
+                filter(month=month).fuel_consumed
+        except:
+            liter = 100.01 * random.random()
+        try:
+            km_values = KMRead.objects.filter(license_id=c.id).\
+                filter(Q(reported_at__gte=start_date)
+                       & Q(reported_at__lte=end_date)).\
+                order_by('reported_at')
+            km = km_values.latest('id').value-km_values[0].value
+        except:
+            km = 1000 * random.random()
+        try:
+            nis_per = cost / km
+            nis_per = round(nis_per, 2)
+        except:
+            nis_per = 10000 * random.random()
+            nis_per = round(nis_per, 2)
+        liter = round(liter, 2)
+        km = round(km, 2)
+        cost = round(cost, 2)
+        km_per_month.append(km)
+        cost_per_month.append(cost)
+        liter_per_month.append(liter)
+        nis_per_km.append(nis_per)
+        url = reverse('view_car', kwargs={'pk': c.id})
+        dataset = dict(
+            carID=c.id,
+            url=url,
+            car=c.license_id,
+            km_per_month=km,
+            cost_per_month=cost,
+            liter_per_month=liter,
+            nis_per_km=nis_per
+        )
+        context.append(dataset)
+    # context = dict(
+    #     cars=cars,
+    #     cost_per_month=cost_per_month,
+    #     liter_per_month=liter_per_month,
+    #     km_per_month=km_per_month,
+    #     nis_per_km=nis_per_km,
+    # )
+    # context = dict(
+    #     classification=pk,
+    #     year=year,
+    #     month=month,
+    #     dataset=dataset,
+    # )
+    return HttpResponse(json.dumps(context))
+    # return render(request, 'effectiveCar/statistics/general.html', context)
+
+
 
 def stationmap_param_json(request, url_id, abbr):
     s = get_object_or_404(Station, url_id=url_id)
