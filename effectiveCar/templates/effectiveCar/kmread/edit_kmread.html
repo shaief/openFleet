@@ -3,16 +3,16 @@
 
 {% block title %}
 {% if object.id %}
-Edit group {{ object.license_id }}
+Edit km read report for car:{{ object.license_id }}
 {% else %}
-Add a group
+Report km read
 {% endif %}
 {% endblock %}
 {% block content %}
 {% if object.id %}
-<h3>Edit group {{ object.license_id }}</h3>
+<h3>Edit km read report{{ object.license_id }}</h3>
 {% else %}
-<h3>Add a record</h3>
+<h3>Report km read</h3>
 {% endif %}
 
 <form action="{{ target }}" method='POST'>
