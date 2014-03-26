@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<link href="{% static 'openFleetJS/barsd3.css' %}" rel="stylesheet">
+{% endblock %}
+{% block title %}
+Statistics
+{% endblock %}
+
+{% block content %}
+<h2>Statistics for <a href="{% url 'view_group' pk=pk %}">{{ name }}</a> group for previous month ({{ last_month }}/{{ this_year }})</h2>
+<div class="container">
+
+<h1 id="ChartTitle"></h1>
+<form>
+  <label><input type="radio" name="dataset" id="nis_per_km" value="nis_per_km" checked=true> NIS per km</label>
+  <label><input type="radio" name="dataset" id="liters" value="liters"> Liters</label>
+  <label><input type="radio" name="dataset" id="km" value="km"> km</label>
+  <label><input type="radio" name="dataset" id="cost" value="cost"> Cost</label>
+</form>
+<input type="checkbox" id="sort">Sort</input>
+<br>
+<svg class="chart1"></svg>
+<!--<form>
+  <label><input type="radio" name="dataset" value="nis_per_km" checked> NIS per km</label>
+  <label><input type="radio" name="dataset" value="liters"> Liters</label>
+  <label><input type="radio" name="dataset" value="km"> km</label>
+  <label><input type="radio" name="dataset" value="cost"> Cost</label>
+</form>-->
+
+<!--<select onchange="loadData()" id="metric">
+   <option >NIS per km</option>
+   <option >Cost</option>
+   <option >Liters</option>
+   <option >km</option>
+</select>-->
+
+<!--<div class="row row-fluid">
+	<div class="col col-md-6">
+	<h2 id="main"></h2>
+	<svg id="chart"></svg>
+	</div>
+</div>
+
+<div class="row row-fluid">
+	<div class="col col-md-6">
+		<h3>NIS per km [NIS/km]:</h3>
+		<input type=checkbox>Sort</input>
+		<svg id="nisperkmchart"></svg>
+	</div>
+	<div class="col col-md-6">
+		<h3>Cost per month [NIS]:</h3>
+		<input type=checkbox>Sort</input>
+		<svg id="costchart"></svg>
+	</div>
+</div>
+<div class="row">
+	<div class="col col-md-6">
+		<h3>km per month [NIS]:</h3>
+		<input type=checkbox>Sort</input>
+		<svg id="kmchart"></svg>
+	</div>
+	<div class="col col-md-6">
+		<h3>Liters per month [L]:</h3>
+		<input type=checkbox>Sort</input>
+		<svg id="literschart"></svg>
+	</div>
+</div>-->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+	var classification = "{% url 'StatisticsClassificationMonth_json' pk=pk year=this_year month=last_month %}";
+	var margin = {top: 40, right: 20, bottom: 60, left: 40};
+	var width = 640 - margin.left - margin.right;
+	var height = 300 - margin.top - margin.bottom;
+
+</script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="{% static 'openFleetJS/barsd3.js' %}"></script>
+<!--<script src="{% static 'openFleetJS/litersbarsd3.js' %}"></script>
+<script src="{% static 'openFleetJS/costbarsd3.js' %}"></script>
+<script src="{% static 'openFleetJS/kmbarsd3.js' %}"></script>
+<script src="{% static 'openFleetJS/nisperkmbarsd3.js' %}"></script>-->
+{% endblock %}
