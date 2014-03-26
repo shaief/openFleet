@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'south',
     # 'debug_toolbar',
     'dj_database_url',
+    'braces',
 
     'effectiveCar',
 )
