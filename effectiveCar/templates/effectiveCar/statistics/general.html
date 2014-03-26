@@ -6,6 +6,7 @@ Statistics
 {% endblock %}
 
 {% block content %}
+<br>
 <div class="row" align="center">
 	<a href="{% url 'add_kmread' %}">
 		<button type="button" class="btn btn-success btn-lg">
@@ -67,7 +68,13 @@ Statistics
 			<tbody>
 				{% for classification in classifications_list %}
 				<tr>
-					<td>{{ classification.group }}</td>
+					<td>
+						<a href="{% url 'StatisticsClassification' pk=classification.id %}"
+						<button type="button" class="btn btn-success btn-lg" style="width:100%">
+							<i class="fa fa-ambulance"></i>
+							{{ classification.group }}
+						</button>
+					</td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -98,21 +105,21 @@ Statistics
 		var h = 200;
 
 		var svgButtons = d3.select("#mainbuttons")
-			.append("svg")
-			.attr("width", w/2)
-			.attr("height", 20)
+		.append("svg")
+		.attr("width", w/2)
+		.attr("height", 20)
 
 		var buttonsLabels = ['Car','Driver'];
 
 		svgButtons.selectAll("button")
-			.data(buttonsLabels)
-			.enter()
-			.append("button")
-			.attr("class", "btn btn-success btn-lg")
-			.text(function(d){ return d;})
-			.append("svg:title");
+		.data(buttonsLabels)
+		.enter()
+		.append("button")
+		.attr("class", "btn btn-success btn-lg")
+		.text(function(d){ return d;})
+		.append("svg:title");
 
-</script>
+	</script>
 
 
-{% endblock %}
+	{% endblock %}
