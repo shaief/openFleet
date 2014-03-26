@@ -4,7 +4,7 @@ from .base import *
 
 ENV = 'heroku'
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
