@@ -2,14 +2,6 @@
 <!DOCTYPE html>
 <html xmlns:xlink="http://www.w3.org/1999/xlink">
 <head>
-	{% block head %}
-	{% endblock %}
-	<title>
-		openFleet -
-		{% block title %}
-		{% endblock %}
-	</title>
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Bootstrap -->
 	<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
@@ -17,9 +9,20 @@
   <!--<link href="{% static 'bootflat/bootflat/css/bootflat.css' %}" rel="stylesheet" media="screen">
   <link href="{% static 'bootflat/bootflat/css/bootflat-extensions.css' %}" rel="stylesheet" media="screen">
   <link href="{% static 'bootflat/bootflat/css/bootflat-square.css' %}" rel="stylesheet" media="screen">-->
+  <script src="https://code.jquery.com/jquery.js"></script>
 
+  <script src="http://d3js.org/d3.v3.min.js"></script>
   <link href="{% static 'font-awesome-4.0.3/css/font-awesome.css' %}" rel="stylesheet">
 
+  <link href="{% static 'openFleetJS/barsd3.css' %}" rel="stylesheet">
+
+  {% block head %}
+  {% endblock %}
+  <title>
+    openFleet -
+    {% block title %}
+    {% endblock %}
+  </title>
 
   <style>
     .btn-xs{
@@ -44,7 +47,6 @@
 
     <!-- Wrap all page content here -->
     <div id="wrap">
-
      <!-- Fixed navbar -->
      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
@@ -86,15 +88,39 @@
      </div>
    </li>
  </li>
+      <li>
+      <div class="btn-group dropdown">
+       <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+        Add Basic data <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="{% url 'add_group' %}"><i class="fa fa-ambulance"></i> Group</a></li>
+        <li><a href="{% url 'add_owner' %}"><i class="glyphicon glyphicon-user"></i> Driver</a></li>
+        <li><a href="{% url 'add_car' %}"><i class="fa fa-truck"></i> Car</a></li>
+      </ul>
+    </div>
+  </li>
+  <li>
+    <div class="btn-group dropdown">
+     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+      Add reports <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="{% url 'add_record' %}"><span class="glyphicon glyphicon-list"/> Monthly records</a></li>
+      <li><a href="{% url 'add_kmread' %}"><span class="glyphicon glyphicon-list"/> KM Read</a></li>
+      <li><a href="{% url 'add_accident' %}"><span class="glyphicon glyphicon-list"/> Accidents</a></li>
+    </ul>
+  </div>
+</li>
  {% block navbar-list %}
  {% endblock %}
- </ul>
- <ul class="nav pull-right"> 
+</ul>
+<ul class="nav pull-right"> 
  <div class="form-group">
-    <!--<input type="text" id="search" class="typeahead form-control input-sm" data-provied="typehead" style="width:200px;" placeholder="Search for cars">-->
+  <!--<input type="text" id="search" class="typeahead form-control input-sm" data-provied="typehead" style="width:200px;" placeholder="Search for cars">-->
   <input type="text" class="typeahead form-control input-sm" data-source="{% url 'license_ids' %}" placeholder="Search for cars">
-    </form>
-  </div>
+</form>
+</div>
 </li>
 </ul>
 </div><!--/.nav-collapse -->
@@ -108,13 +134,9 @@
   <br/>
   {% block content %}
   {% endblock %}
-  {% block body_js %}
-
-  {% endblock body_js %}
 </div>
-
 <div id="footer">
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav navbar-default navbar-fixed-bottom" role="navigation">
      <li>
       <div class="btn-group dropup">
        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
@@ -139,79 +161,29 @@
     </ul>
   </div>
 </li>
-</ul>
-</div><!--/.nav-collapse -->
-<br><br>
+<li>
  <div class="text-muted" align="center">openFleet - manages your fleet since 02/2014.</br>
    <a href="http://shaief.com">Shai Efrati</a> //
    <a href="https://github.com/shaief/openFleet">project page on GitHub</a>
- </div></div>
+ </div>
  <div align="center">
   <img src="{% static 'images/SElogo25x25.png' %}"/>
 </div>
+</li>
+</ul>
+</div><!--/.nav-collapse -->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!--<script src="https://code.jquery.com/jquery.js"></script>-->
-<script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
+<!--<script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>-->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <!--<script type="text/javascript" src="{% static 'lib/d3.js' %}"></script>-->
-<script src="{% static "typeahead.js/typeahead.js" %}"></script>
-<!--<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
-
-<script>
-  {% verbatim %}
-  $(function() {
-    $('#search').typeahead({
-      name: 'twitter-oss',
-      remote: '{% url "license_ids" %}',
-      engine: Hogan
-    })
-    .keydown(function(e) {
-        if (e.keyCode === 13) {
-            $("form").trigger('submit');
-        }
-    });
-});
-    
-    $('#search').on('typeahead:selected', function (object, datum) {
-        // Example: {value: "@JakeHarding", tokens: ['Jake', 'Harding'], name: "Jake Harding", profileImageUrl: "https://twitter.com/JakeHaridng/profile_img"}
-        //console.log(datum);
-        window.location.replace(datum.url);
-      });
-  });
-  
-  $("#id_contactForm").submit(function(event) {
-    //disable the default form submission
-    event.preventDefault();
-    
-    $('#contactModal').modal('hide');
-    $("#alert-message").empty().text("Sending your message..");
-    $(".alert").show();
-
-    var values = {};
-    $.each($('#id_contactForm').serializeArray(), function(i, field) {
-      values[field.name] = field.value;
-    });
-    
-    $.post("{% url 'view_car' %}", values, function(returndata) {
-      $("#alert-message").empty().text("Message has been sent successfully.");
-    }).fail(function() {
-      $("#alert-message").empty().text("Faild to send your message.");
-    }).complete(function() {
-      $("#id_content").val('');
-    });
-
-    return false;
-  });
-
-  $("#close-alert").click(function() {
-    $(".alert").hide();
-  });
-  {% endverbatim %}
-</script>
-  {% block scripts %}
-  {% endblock %}
+<!--<script src="{% static "typeahead.js/typeahead.js" %}"></script>-->
+<!--<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>-->
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+{% block scripts %}
+{% endblock %}
 
 </body>
 </html>
