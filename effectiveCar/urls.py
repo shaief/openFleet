@@ -6,8 +6,8 @@ from django.views.generic import TemplateView
 # from django.conf import settings
 
 urlpatterns = patterns('',
-    url(r'^administration/$', TemplateView.as_view(
-        template_name="effectiveCar/administration.html"),
+    url(r'^administration/$',
+        TemplateView.as_view(template_name="effectiveCar/administration.html"),
         name='administration'),
     url(r'^$', 'effectiveCar.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
@@ -120,6 +120,12 @@ urlpatterns = patterns('',
     url(r'^statistics/$',
         views.StatisticsGeneral,
         name='statistics'),
+    url(r'^statisticsclassificationmonth_json/(?P<pk>\d+)/(?P<year>\d+)/(?P<month>\d+)/$',
+        views.StatisticsClassificationMonth_json,
+        name='StatisticsClassificationMonth_json'),
+    url(r'^StatisticsClassification/(?P<pk>\d+)/$',
+        views.StatisticsClassification,
+        name='StatisticsClassification'),
 
 
     url(r'^search_car/$', views.search_car),
