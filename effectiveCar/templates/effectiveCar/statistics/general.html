@@ -7,7 +7,7 @@ Statistics
 
 {% block content %}
 <br>
-<div class="row" align="center">
+<!--<div class="row" align="center">
 	<a href="{% url 'add_kmread' %}">
 		<button type="button" class="btn btn-success btn-lg">
 			<i class="fa fa-calendar"></i>
@@ -35,33 +35,9 @@ Statistics
 			Driver
 		</button>
 	</a>
-</div>
-<svg class="mainbuttons"></svg>
+</div>-->
+<!--<svg class="mainbuttons"></svg>-->
 <div class="row" align="center">
-	<div class="col-lg-2">
-		<h4>Cars</h4>
-		<table class="table table-striped">
-			<tbody>
-				{% for car in cars_list %}
-				<tr>
-					<td>{{ car.license_id }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>	
-	<div class="col-lg-2">
-		<h4>Owners</h4>
-		<table class="table table-striped">
-			<tbody>
-				{% for owner in owners_list %}
-				<tr>
-					<td>{{ owner.license_id }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>	
 	<div class="col-lg-2">
 		<h4>Classifications</h4>
 		<table class="table table-striped">
@@ -69,7 +45,7 @@ Statistics
 				{% for classification in classifications_list %}
 				<tr>
 					<td>
-						<a href="{% url 'StatisticsClassification' pk=classification.id %}"
+						<a href="{% url 'StatisticsClassification' pk=classification.id%}"
 						<button type="button" class="btn btn-success btn-lg" style="width:100%">
 							<i class="fa fa-ambulance"></i>
 							{{ classification.group }}
@@ -80,7 +56,47 @@ Statistics
 			</tbody>
 		</table>
 	</div>
-	<div class="col-lg-2">
+	<div class="col-lg-10">
+		<div class="row">
+			<h4 align="center">Cars</h4>
+			{% for classification in classifications_list %}
+			<div class="col-lg-4">
+				<table class="table table-striped">
+					<tbody>
+						<th>{{ classification }}</th>
+						{% for car in cars_list %}
+						{% ifequal car.classification.id classification.id %}
+						<tr>
+							<td>
+								<a href="{% url 'StatisticsCar' pk=car.id  year=year %}"
+								<button type="button" class="btn btn-success btn-lg" style="width:100%">
+									<i class="fa fa-truck"></i>
+									{{ car.license_id }} - {{ car.current_owner }}
+								</button>
+							</a>
+						</td>
+					</tr>
+					{% endifequal %}	
+					{% endfor %}
+				</tbody>
+			</table>
+			</div>
+			{% endfor %}
+		</div>
+	</div>	
+	<!--<div class="col-lg-2">
+		<h4>Owners</h4>
+		<table class="table table-striped">
+			<tbody>
+				{% for owner in owners_list %}
+				<tr>
+					<td>{{ owner.license_id }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>-->
+	<!--<div class="col-lg-2">
 		<h4>Months</h4>
 		<table class="table table-striped">
 			<tbody>
@@ -91,13 +107,13 @@ Statistics
 				{% endfor %}
 			</tbody>
 		</table>
-	</div>
+	</div>-->
 </div>
 </br>
 <div id="bars"></div>
 
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
 		//Create SVG element
        	//Width and height
 		// a global
@@ -119,7 +135,7 @@ Statistics
 		.text(function(d){ return d;})
 		.append("svg:title");
 
-	</script>
+	</script>-->
 
 
 	{% endblock %}
