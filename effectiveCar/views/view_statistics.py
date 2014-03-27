@@ -105,6 +105,7 @@ def StatisticsClassificationMonth_json(request, pk, year, month):
     start_date = datetime.date(year, month, 1)
     end_date = datetime.date(year, month,
                              calendar.monthrange(year, month)[1])
+    end_date = (end_date + datetime.timedelta(days=1))
     for c in cars_list:
         cars.append(c.license_id)
         try:
@@ -198,6 +199,7 @@ def StatisticsCar_json(request, pk, year):
         # month
         end_date = datetime.date(mo.year, mo.month,
                                  calendar.monthrange(mo.year, mo.month)[1])
+        end_date = (end_date + datetime.timedelta(days=1))
         try:
             cost = mo.cost
         except:
@@ -207,7 +209,7 @@ def StatisticsCar_json(request, pk, year):
         except:
             liter = 100.01 * random.random()
         try:
-            km_values = KMRead.objects.filter(license_id=car.license_id).\
+            km_values = KMRead.objects.filter(license_id=car).\
                 filter(Q(reported_at__gte=start_date)
                        & Q(reported_at__lte=end_date)).\
                 order_by('reported_at')
