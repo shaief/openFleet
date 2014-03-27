@@ -31,6 +31,9 @@ class Owner(models.Model):
     image = models.ImageField(upload_to='owners/',
                               default='owners/None/no-img.jpg')
 
+    class Meta:
+        unique_together = ("first_name", "last_name")
+
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.first_name + " " + self.last_name
 
@@ -78,12 +81,19 @@ class CarStatus(models.Model):
 
 
 class MonthlyRecord(models.Model):
+    This_Year = datetime.today().year
+    YEAR_CHOICE = [(i, i) for i in range(This_Year-1, This_Year+1)]
+    MONTH_CHOICE = [(i, i) for i in range(1, 13)]
     license_id = models.ForeignKey(Car)
-    year = models.IntegerField()
-    month = models.IntegerField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    year = models.IntegerField(choices=YEAR_CHOICE)
+    month = models.IntegerField(choices=MONTH_CHOICE)
     fuel_consumed = models.FloatField()
     cost = models.FloatField()
     km = models.FloatField()
+
+    class Meta:
+            unique_together = ("license_id", "year", "month")
 
     def __unicode__(self):  # Python 3: def __str__(self):
         return str(self.year) + " " + str(self.month)
@@ -91,6 +101,7 @@ class MonthlyRecord(models.Model):
 
 class CarOwnership(models.Model):
     license_id = models.ForeignKey(Car)
+    timestamp = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(Owner)
     start_date = models.DateField(default=datetime.today())
     end_date = models.DateField(null=True)
@@ -145,6 +156,7 @@ class City(models.Model):
 
 class Parking(models.Model):
     license_id = models.ForeignKey(Car)
+    timestamp = models.DateTimeField(auto_now_add=True)
     city = models.ForeignKey(City)
     date = models.DateField(default=datetime.today())
     cost = models.FloatField()
@@ -155,6 +167,7 @@ class Parking(models.Model):
 
 class Road6(models.Model):
     license_id = models.ForeignKey(Car)
+    timestamp = models.DateTimeField(auto_now_add=True)
     date = models.DateField(default=datetime.today())
     cost = models.FloatField()
 
