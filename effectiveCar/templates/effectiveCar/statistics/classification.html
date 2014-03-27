@@ -8,7 +8,7 @@ Statistics
 {% endblock %}
 
 {% block content %}
-<h2>Statistics for <a href="{% url 'view_group' pk=pk %}">{{ name }}</a> group for previous month ({{ last_month }}/{{ this_year }})</h2>
+<h2>Statistics for <a href="{% url 'view_group' pk=pk %}">{{ name }}</a> group for previous month ({{ previous_month }}/{{ previous_month_year }})</h2>
 <div class="container">
 
 <h1 id="ChartTitle"></h1>
@@ -70,7 +70,7 @@ Statistics
 {% endblock %}
 {% block scripts %}
 <script type="text/javascript">
-	var classification = "{% url 'StatisticsClassificationMonth_json' pk=pk year=this_year month=last_month %}";
+	var classification = "{% url 'StatisticsClassificationMonth_json' pk=pk year=previous_month_year month=previous_month %}";
 	var margin = {top: 40, right: 20, bottom: 60, left: 40};
 	var width = 640 - margin.left - margin.right;
 	var height = 300 - margin.top - margin.bottom;
