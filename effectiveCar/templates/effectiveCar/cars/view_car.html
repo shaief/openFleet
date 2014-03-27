@@ -21,10 +21,7 @@
 				</thead>
 				<tbody>
 					<tr><td>
-						<a href="{% url 'edit_car' pk=car.id%}"><button type="button" class="btn btn-default btn-md" style="width:100%">
-							<span class="glyphicon glyphicon-wrench"></span>
-							Edit car details
-						</button></a>
+						<a href="{% url 'add_record' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="fa fa-calendar"></i> Add a monthly report</button></a>
 					</td></tr>
 					<tr><td>
 						<a href="{% url 'add_accident' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="fa fa-ambulance"></i> Report an accident</button></a>
@@ -32,9 +29,19 @@
 					<tr><td>
 						<a href="{% url 'add_kmread' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="glyphicon glyphicon-dashboard"></i> Report km read</button></a>
 					</td></tr>
-					<tr class="info"><td>
+					<!--<tr class="info"><td>
 						<a href="{% url 'add_car' %}"><button class="btn btn-default btn-md"  style="width:100%"><i class="fa fa-truck"></i> Add a car</button></a>
+					</td></tr>-->
+					<tr><th>
+					Car stuff
+					</th></tr>					
+					<tr><td>
+						<a href="{% url 'edit_car' pk=car.id%}"><button type="button" class="btn btn-default btn-md" style="width:100%">
+							<span class="glyphicon glyphicon-wrench"></span>
+							Edit car details
+						</button></a>
 					</td></tr>
+					
 				</tbody>
 			</table>
 		</div>
