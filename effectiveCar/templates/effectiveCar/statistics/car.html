@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<link href="{% static 'openFleetJS/barsd3.css' %}" rel="stylesheet">
+{% endblock %}
+{% block title %}
+Statistics
+{% endblock %}
+
+{% block content %}
+<h2 align="center">Statistics for <a href="{% url 'view_car' pk=pk %}">{{ car.nickname }}</a> ({{ year }})</h2>
+<div class="container">
+	<div class="row">
+		<div class="col col-lg-1">
+			{% for year in years_list %}
+			<a href="{% url 'StatisticsCar' pk=car.id year=year.year %}"
+			<button type="button" class="btn btn-default btn-sm">
+				<i class="fa fa-calendar"></i>
+				{{ year.year }}
+			</button></a>
+			{% endfor %}
+		</div>
+		<div class="col col-lg-6">
+			<h1 id="ChartTitle"></h1>
+			<form>
+				<label>
+					<input type="radio" name="dataset" id="nis_per_km" value="nis_per_km" checked=true> NIS per km
+				</label>
+				<label>
+					<input type="radio" name="dataset" id="liters" value="liters"> Liters
+				</label>
+				<label>
+					<input type="radio" name="dataset" id="km" value="km"> km
+				</label>
+				<label>
+					<input type="radio" name="dataset" id="cost" value="cost"> Cost
+				</label>
+			</form>
+			<input type="checkbox" id="sort">Sort</input>
+			<br>
+			<svg class="chart"></svg>
+		</div>
+	</div>
+	<div class="row">
+		<p align="right"><a href="{% url 'StatisticsCar_json' pk=pk year=year %}">raw json</a></p>
+	</div>
+</div>
+	{% endblock %}
+	{% block scripts %}
+	<script type="text/javascript">
+		var car = "{% url 'StatisticsCar_json' pk=pk  year=year %}";
+		var margin = {top: 40, right: 20, bottom: 60, left: 40};
+		var width = 640 - margin.left - margin.right;
+		var height = 300 - margin.top - margin.bottom;
+
+	</script>
+	<script src="{% static 'openFleetJS/carbarsd3.js' %}"></script>
+	{% endblock %}
