@@ -234,63 +234,23 @@
 		<table class="table table-condensed">
 			<thead>
 				<th class="active">
-					<h3 align="center">Notifications</h3>
+					<h3 align="center">What would you like to see?</h3>
 				</th>
 			</thead>
 			<tbody>
 				<tr><td>
-					{% ifequal license_renewal 1%}
-					<button type="button" class="btn btn-danger btn-md  style="width:100%"">
-						Renew car license<br>less than a week!
-					</button>
-					{% endifequal %}
-					{% ifequal license_renewal 2%}
-					<button type="button" class="btn btn-warning btn-md  style="width:100%"">
-						Renew car license<br>less than a month!
-					</button>
-					{% endifequal %}
-					{% ifequal license_renewal 3%}
-					<button type="button" class="btn btn-success btn-md  style="width:100%"">
-						License is renewed
-					</button>
-					{% endifequal %}
-				</td></tr>
-				<tr><td>
-					{% ifequal insurance_renewal 1%}
-					<button type="button" class="btn btn-danger btn-md  style="width:100%"">
-						Renew car insurance<br>less than a week!
-					</button>
-					{% endifequal %}
-					{% ifequal insurance_renewal 2%}
-					<button type="button" class="btn btn-warning btn-md  style="width:100%"">
-						Renew car insurance<br>less than a month!
-					</button>
-					{% endifequal %}
-					{% ifequal insurance_renewal 3%}
-					<button type="button" class="btn btn-success btn-md  style="width:100%"">
-						Insurance is renewed
-					</button>
-					{% endifequal %}
-				</td></tr>
-				<tr><td>
-					<a href="{% url 'accidents' pk=car.id %}">
-						<button type="button" class="btn btn-default btn-md  style="width:100%"">
-							{{ km }}
+						<a href="{% url 'StatisticsClassification' pk=car.classification.id %}"
+						<button type="button" class="btn btn-default btn-md"  style="width:100%">
+							{{ car.classification.group }}'s statistics
 						</button>
 					</a>
 				</td></tr>
 				<tr><td>
-					{% ifequal accidents_cost None %}
-					<button type="button" class="btn btn-default btn-md  style="width:100%"">
-						No accidents reported!
-					</button>
-					{% else %}
-					<a href="{% url 'accidents' pk=car.id %}">
-						<button type="button" class="btn btn-default btn-md  style="width:100%"">
-							Total cost of accidents: {{ accidents_cost }}
+						<a href="{% url 'StatisticsCar' pk=car.id year=2014 %}"
+						<button type="button" class="btn btn-default btn-md"  style="width:100%">
+							car's statistics
 						</button>
 					</a>
-					{% endifequal %}
 				</td></tr>
 			</tbody>
 		</table>
