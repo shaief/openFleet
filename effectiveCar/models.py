@@ -1,8 +1,10 @@
+from django.conf import settings
 from django.db import models
 from datetime import datetime
 
 
 class Department(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=30, unique=True)
     description = models.TextField(null=True, blank=True)
 
@@ -11,6 +13,7 @@ class Department(models.Model):
 
 
 class Manager(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=30)
     email = models.EmailField(null=True)
 
@@ -19,6 +22,7 @@ class Manager(models.Model):
 
 
 class Owner(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     # CHOICES = ['A2', 'A1', 'A', 'B', 'C1', 'C',
     #            'D', 'D1', 'D2', 'D3', 'E', '1']
     first_name = models.CharField(max_length=30)
@@ -39,6 +43,7 @@ class Owner(models.Model):
 
 
 class Classification(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     group = models.CharField(max_length=30, unique=True)
     description = models.TextField(null=True, blank=True)
 
@@ -47,6 +52,7 @@ class Classification(models.Model):
 
 
 class Car(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     This_Year = datetime.today().year
     CHOICES = [(i, i) for i in range(This_Year-8, This_Year+1)]
     nickname = models.CharField(max_length=100)
@@ -68,6 +74,7 @@ class Car(models.Model):
 
 
 class CarStatus(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     CHOICES = (('active', 'Active'),
                ('not active', 'Not active'),
                ('sold', 'Sold'))
@@ -81,6 +88,7 @@ class CarStatus(models.Model):
 
 
 class MonthlyRecord(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     This_Year = datetime.today().year
     YEAR_CHOICE = [(i, i) for i in range(This_Year-1, This_Year+1)]
     MONTH_CHOICE = [(i, i) for i in range(1, 13)]
@@ -100,6 +108,7 @@ class MonthlyRecord(models.Model):
 
 
 class CarOwnership(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     license_id = models.ForeignKey(Car)
     timestamp = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(Owner)
@@ -112,6 +121,7 @@ class CarOwnership(models.Model):
 
 
 class TreatmentType(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=400)
     is_planned = models.BooleanField(default=False)
 
@@ -120,6 +130,7 @@ class TreatmentType(models.Model):
 
 
 class Treatment(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     license_id = models.ForeignKey(Car)
     treatmenttype = models.ForeignKey(TreatmentType)
     timestamp = models.DateTimeField(default=datetime.now, blank=True)
@@ -134,6 +145,7 @@ class Treatment(models.Model):
 
 
 class KMRead(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     CHOICES = (('percise', 'Percise'), ('estimate', 'Estimate'))
     license_id = models.ForeignKey(Car)
     reported_at = models.DateTimeField(default=datetime.now, blank=True)
@@ -155,6 +167,7 @@ class City(models.Model):
 
 
 class Parking(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     license_id = models.ForeignKey(Car)
     timestamp = models.DateTimeField(auto_now_add=True)
     city = models.ForeignKey(City)
@@ -166,6 +179,7 @@ class Parking(models.Model):
 
 
 class Road6(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     license_id = models.ForeignKey(Car)
     timestamp = models.DateTimeField(auto_now_add=True)
     date = models.DateField(default=datetime.today())
@@ -176,6 +190,7 @@ class Road6(models.Model):
 
 
 class Accident(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     license_id = models.ForeignKey(Car)
     driver = models.CharField(max_length=50, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
