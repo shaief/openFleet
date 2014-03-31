@@ -6,6 +6,7 @@ from django.core.management.base import BaseCommand
 from openFleet.settings.base import PROJECT_DIR
 from effectiveCar.models import (Car, Classification,
                                  Owner, Department, Manager)
+from users.models import User
 from django.db.models import Q
 
 
@@ -32,6 +33,7 @@ class Command(BaseCommand):
                         cl = Classification.objects.create(
                             group=row[2],
                             description=row[2],
+                            author=User.objects.get(id=1),
                         )
                     cl.save()
                     try:
@@ -41,6 +43,7 @@ class Command(BaseCommand):
                         print "Add Department: " + row[14]
                         d = Department.objects.create(
                             name=row[14],
+                            author=User.objects.get(id=1),
                         )
                     d.save
                     try:
@@ -49,6 +52,7 @@ class Command(BaseCommand):
                         print "Add Manager: " + row[15]
                         m = Manager.objects.create(
                             name=row[15],
+                            author=User.objects.get(id=1),
                         )
                     m.save
                     name_split = row[11].split(' ')
@@ -63,6 +67,7 @@ class Command(BaseCommand):
                             license_renewal_date=row[13],
                             department=Department.objects.get(name=row[14]),
                             manager_name=Manager.objects.get(name=row[15]),
+                            author=User.objects.get(id=1),
                         )
                     o.save
                     try:
@@ -99,6 +104,7 @@ class Command(BaseCommand):
                                 Q(first_name=name_split[0]) &
                                 Q(last_name=name_split[1])),
                             status=row[12],
+                            author=User.objects.get(id=1),
                         )
                     print "updated field: " + c.license_id
                     c.save()
