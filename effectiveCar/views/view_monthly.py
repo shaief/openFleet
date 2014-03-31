@@ -9,6 +9,8 @@ from django.views.generic import (
 
 from effectiveCar.models import MonthlyRecord
 
+from braces.views import LoginRequiredMixin
+
 
 class MonthlyListView(ListView):
 
@@ -17,7 +19,7 @@ class MonthlyListView(ListView):
     template_name = 'effectiveCar/monthly/records_list.html'
 
 
-class CreateMonthlyView(CreateView):
+class CreateMonthlyView(LoginRequiredMixin, CreateView):
 
     model = MonthlyRecord
     fields = ['license_id', 'year', 'month', 'fuel_consumed', 'cost', 'km']
@@ -33,7 +35,24 @@ class CreateMonthlyView(CreateView):
         return context
 
 
-class UpdateMonthlyView(UpdateView):
+class CreateMonthlyViewCar(LoginRequiredMixin, CreateView):
+
+    model = MonthlyRecord
+    fields = ['license_id', 'year', 'month', 'fuel_consumed', 'cost', 'km']
+    template_name = 'effectiveCar/monthly/edit_monthly.html'
+
+    def get_success_url(self):
+        return reverse('records_list')
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateMonthlyView, self).get_context_data(**kwargs)
+        context['target'] = reverse('add_record',
+                                    kwargs={'pk': Car.objects.get(id=self.kwargs['pk'])})
+
+        return context
+
+
+class UpdateMonthlyView(LoginRequiredMixin, UpdateView):
 
     model = MonthlyRecord
     fields = ['license_id', 'year', 'month', 'fuel_consumed', 'cost', 'km']

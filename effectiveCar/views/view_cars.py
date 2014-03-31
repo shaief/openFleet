@@ -24,6 +24,8 @@ import datetime
 # import time
 # import itertools
 
+from braces.views import LoginRequiredMixin
+
 
 class CarListView(ListView):
 
@@ -32,7 +34,7 @@ class CarListView(ListView):
     template_name = 'effectiveCar/cars/cars_list.html'
 
 
-class CreateCarView(CreateView):
+class CreateCarView(LoginRequiredMixin, CreateView):
 
     model = Car
     fields = ['nickname',
@@ -61,7 +63,7 @@ class CreateCarView(CreateView):
         return context
 
 
-class UpdateCarView(UpdateView):
+class UpdateCarView(LoginRequiredMixin, UpdateView):
 
     model = Car
     fields = ['nickname',
@@ -90,7 +92,7 @@ class UpdateCarView(UpdateView):
         return context
 
 
-class DeleteCarView(DeleteView):
+class DeleteCarView(LoginRequiredMixin, DeleteView):
     model = Car
     success_url = reverse_lazy('cars_list')
 

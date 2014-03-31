@@ -9,6 +9,7 @@ from django.views.generic import (
 
 from effectiveCar.models import Classification
 
+from braces.views import LoginRequiredMixin
 
 class GroupsListView(ListView):
 
@@ -17,7 +18,7 @@ class GroupsListView(ListView):
     template_name = 'effectiveCar/classification/groups_list.html'
 
 
-class CreateGroupView(CreateView):
+class CreateGroupView(LoginRequiredMixin, CreateView):
 
     model = Classification
     fields = ['group']
@@ -33,7 +34,7 @@ class CreateGroupView(CreateView):
         return context
 
 
-class UpdateGroupView(UpdateView):
+class UpdateGroupView(LoginRequiredMixin, UpdateView):
 
     model = Classification
     fields = ['group']

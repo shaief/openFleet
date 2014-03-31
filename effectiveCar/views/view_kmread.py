@@ -9,6 +9,7 @@ from django.views.generic import (
 
 from effectiveCar.models import KMRead
 
+from braces.views import LoginRequiredMixin
 
 class KMReadListView(ListView):
 
@@ -17,7 +18,7 @@ class KMReadListView(ListView):
     template_name = 'effectiveCar/kmread/kmreads_list.html'
 
 
-class CreateKMReadView(CreateView):
+class CreateKMReadView(LoginRequiredMixin, CreateView):
 
     model = KMRead
     fields = ['license_id', 'reported_at', 'report_type', 'value']
@@ -33,7 +34,7 @@ class CreateKMReadView(CreateView):
         return context
 
 
-class UpdateKMReadView(UpdateView):
+class UpdateKMReadView(LoginRequiredMixin, UpdateView):
 
     model = KMRead
     fields = ['license_id', 'reported_at', 'report_type', 'value']

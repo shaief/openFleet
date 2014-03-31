@@ -12,6 +12,7 @@ from effectiveCar.models import Accident, Car
 
 from django.db.models import Avg, Sum
 
+from braces.views import LoginRequiredMixin
 
 class AccidentsListView(ListView):
 
@@ -21,7 +22,7 @@ class AccidentsListView(ListView):
     template_name = 'effectiveCar/accidents/accidents_list.html'
 
 
-class CreateAccidentView(CreateView):
+class CreateAccidentView(LoginRequiredMixin, CreateView):
 
     model = Accident
     fields = ['license_id', 'driver', 'date', 'cost',
@@ -38,7 +39,7 @@ class CreateAccidentView(CreateView):
         return context
 
 
-class UpdateAccidentView(UpdateView):
+class UpdateAccidentView(LoginRequiredMixin, UpdateView):
 
     model = Accident
     fields = ['license_id', 'driver', 'date', 'cost',
@@ -55,7 +56,7 @@ class UpdateAccidentView(UpdateView):
         return context
 
 
-class DeleteAccidentView(DeleteView):
+class DeleteAccidentView(LoginRequiredMixin, DeleteView):
     model = Accident
     success_url = reverse_lazy('accidents_list')
 

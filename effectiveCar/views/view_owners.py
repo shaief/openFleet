@@ -9,6 +9,7 @@ from django.views.generic import (
 
 from effectiveCar.models import Owner
 
+from braces.views import LoginRequiredMixin
 
 class OwnerListView(ListView):
 
@@ -17,7 +18,7 @@ class OwnerListView(ListView):
     template_name = 'effectiveCar/owners/owners_list.html'
 
 
-class CreateOwnerView(CreateView):
+class CreateOwnerView(LoginRequiredMixin, CreateView):
 
     model = Owner
     fields = ['first_name', 'last_name', 'email', 'license_category',
@@ -34,7 +35,7 @@ class CreateOwnerView(CreateView):
         return context
 
 
-class UpdateOwnerView(UpdateView):
+class UpdateOwnerView(LoginRequiredMixin, UpdateView):
 
     model = Owner
     fields = ['first_name', 'last_name', 'email', 'license_category',
@@ -51,7 +52,7 @@ class UpdateOwnerView(UpdateView):
         return context
 
 
-class DeleteOwnerView(DeleteView):
+class DeleteOwnerView(LoginRequiredMixin, DeleteView):
     model = Owner
     success_url = reverse_lazy('owners_list')
 
